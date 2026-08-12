@@ -1,0 +1,558 @@
+:root {
+  --bg: #121218;
+  --card: #1a1a24;
+  --card-border: #2b2b38;
+  --text: #f1f1f5;
+  --text-dim: #9797a8;
+  --accent: #6366f1;
+  --accent-hover: #7477f5;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 380px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 18px 6px;
+}
+
+.header h1 {
+  font-size: 16px;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.logo {
+  font-size: 18px;
+}
+
+main {
+  padding: 8px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+}
+
+.card-title {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.zone-status {
+  background: #0f0f16;
+  border: 1px dashed var(--card-border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  word-break: break-word;
+}
+
+.zone-status.filled {
+  color: var(--text);
+  border-style: solid;
+  border-color: var(--success);
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.05s ease, opacity 0.15s ease, background 0.15s ease;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: #24243035;
+  background: #262633;
+  color: var(--text);
+  border: 1px solid var(--card-border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #2f2f3e;
+}
+
+.btn-start {
+  background: var(--success);
+  color: #06210f;
+  padding: 14px;
+  font-size: 15px;
+}
+
+.btn-start:hover:not(:disabled) {
+  background: #34d670;
+}
+
+.btn-stop {
+  background: var(--danger);
+  color: #2b0505;
+  padding: 14px;
+  font-size: 15px;
+}
+
+.btn-stop:hover:not(:disabled) {
+  background: #f66;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.chip {
+  background: #22222e;
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.chip:hover {
+  background: #2b2b3a;
+}
+
+.chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.custom-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.custom-row input[type="number"] {
+  width: 64px;
+  background: #0f0f16;
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 12.5px;
+}
+
+.custom-row select {
+  flex: 1;
+  background: #0f0f16;
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 6px 8px;
+  font-size: 12.5px;
+}
+
+.field-error {
+  color: var(--danger);
+  font-size: 11.5px;
+  margin: 8px 0 0;
+}
+
+.radio-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+
+.radio-row:hover {
+  background: #21212c;
+}
+
+.radio-row input {
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.status-box {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+}
+
+.status-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-idle {
+  background: #6b6b7a;
+}
+
+.dot-running {
+  background: var(--success);
+  box-shadow: 0 0 8px var(--success);
+}
+
+.dot-error {
+  background: var(--danger);
+  box-shadow: 0 0 8px var(--danger);
+}
+
+.countdown {
+  margin-top: 6px;
+  color: var(--text-dim);
+  font-size: 12.5px;
+}
+
+#countdownValue {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.error-line {
+  margin-top: 6px;
+  color: var(--danger);
+  font-size: 12px;
+}
+
+.banner {
+  margin: 0 18px 4px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  line-height: 1.4;
+}
+
+.banner-warning {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =======================================================================
+   Formulario Premium
+   ======================================================================= */
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  padding: 0 18px 10px;
+}
+
+.tab-btn {
+  flex: 1;
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--text-dim);
+  border-radius: 8px;
+  padding: 8px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tab-btn:hover {
+  background: #1c1c26;
+}
+
+.tab-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.muted {
+  color: var(--text-dim);
+  font-size: 12px;
+  margin: 0;
+}
+
+.text-input,
+.select-input {
+  width: 100%;
+  background: #0f0f16;
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12.5px;
+  margin-top: 6px;
+}
+
+.text-input:first-child,
+.select-input:first-child {
+  margin-top: 0;
+}
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.card-title-row .card-title {
+  margin: 0;
+}
+
+.btn-mini {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 5px 9px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-mini:hover {
+  background: var(--accent-hover);
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  cursor: pointer;
+  font-size: 12.5px;
+}
+
+.check-row input {
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.field-row-label {
+  font-size: 12.5px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.field-row .select-input {
+  width: auto;
+  min-width: 110px;
+  margin-top: 0;
+}
+
+/* Lista de formularios guardados */
+
+.form-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: #0f0f16;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.form-card-info {
+  min-width: 0;
+  cursor: pointer;
+  flex: 1;
+}
+
+.form-card-name {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.form-card-meta {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.form-card-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+/* Lista de campos dentro del editor */
+
+.field-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.field-card {
+  background: #0f0f16;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.field-card-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.field-index {
+  color: var(--text-dim);
+  font-size: 12px;
+  flex-shrink: 0;
+  width: 16px;
+}
+
+.field-label-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  color: var(--text);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 2px 0;
+}
+
+.field-label-input:focus {
+  outline: none;
+  border-bottom-color: var(--accent);
+}
+
+.field-card-actions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 13px;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.icon-btn:hover {
+  background: #22222e;
+  color: var(--text);
+}
+
+.icon-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.field-card-selector {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10.5px;
+  color: var(--text-dim);
+  background: #17171f;
+  border-radius: 5px;
+  padding: 3px 6px;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.field-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Caja de estado durante la ejecución de un formulario */
+
+.progress-line {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.progress-line strong {
+  color: var(--text);
+}

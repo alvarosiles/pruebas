@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Auto Action</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="header">
+      <span class="logo">⚡</span>
+      <h1>Auto Action</h1>
+    </header>
+
+    <div class="tabs" id="tabs">
+      <button class="tab-btn active" data-tab="auto">⚡ Auto Action</button>
+      <button class="tab-btn" data-tab="premium">⭐ Formulario Premium</button>
+    </div>
+
+    <div id="pageWarning" class="banner banner-warning hidden"></div>
+
+    <main id="autoActionMain">
+      <section class="card">
+        <h2 class="card-title">Zona</h2>
+        <div id="zoneStatus" class="zone-status">
+          <span id="zoneStatusText">Ninguna zona seleccionada</span>
+        </div>
+        <button id="selectZoneBtn" class="btn btn-secondary">Seleccionar zona</button>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">Intervalo</h2>
+        <div class="chip-row" id="quickIntervals">
+          <button class="chip" data-seconds="30">30 s</button>
+          <button class="chip" data-seconds="60">1 min</button>
+          <button class="chip" data-seconds="120">2 min</button>
+          <button class="chip" data-seconds="180">3 min</button>
+          <button class="chip" data-seconds="300">5 min</button>
+          <button class="chip" data-seconds="600">10 min</button>
+        </div>
+        <div class="custom-row">
+          <button class="chip" id="customChip">Personalizado</button>
+          <input type="number" id="customValue" min="1" step="1" placeholder="3" />
+          <select id="customUnit">
+            <option value="seconds">segundos</option>
+            <option value="minutes" selected>minutos</option>
+            <option value="hours">horas</option>
+          </select>
+        </div>
+        <p id="intervalError" class="field-error hidden"></p>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">Acción</h2>
+        <label class="radio-row">
+          <input type="radio" name="action" value="click" />
+          <span>🖱️ Click izquierdo del mouse</span>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="action" value="holdClick" />
+          <span>🖱️ Click izquierdo mantenido durante 3 segundos</span>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="action" value="space" />
+          <span>␣ Presionar ESPACIO</span>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="action" value="enter" />
+          <span>↵ Presionar ENTER principal</span>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="action" value="numpadEnter" />
+          <span>⌨️ Presionar ENTER del teclado numérico</span>
+        </label>
+      </section>
+
+      <button id="startBtn" class="btn btn-start">▶ INICIAR</button>
+      <button id="stopBtn" class="btn btn-stop hidden">■ DETENER</button>
+
+      <section class="status-box" id="statusBox">
+        <div class="status-line">
+          <span id="statusDot" class="dot dot-idle"></span>
+          <span id="statusText">DETENIDO</span>
+        </div>
+        <div id="countdownLine" class="countdown hidden">
+          Próxima acción: <span id="countdownValue">--:--</span>
+        </div>
+        <div id="errorLine" class="error-line hidden"></div>
+      </section>
+    </main>
+
+    <main id="premiumMain" class="hidden">
+      <!-- Vista: lista de formularios guardados -->
+      <section id="premiumListView">
+        <button id="newFormBtn" class="btn btn-secondary">➕ Nuevo formulario</button>
+
+        <section class="card">
+          <h2 class="card-title">📋 Formularios guardados</h2>
+          <div id="formList" class="form-list">
+            <p id="formListEmpty" class="muted">Todavía no creaste ningún formulario.</p>
+          </div>
+        </section>
+      </section>
+
+      <!-- Vista: editor de un formulario -->
+      <section id="premiumEditorView" class="hidden">
+        <button id="backToListBtn" class="btn btn-secondary">← Formularios</button>
+
+        <section class="card">
+          <h2 class="card-title">Nombre</h2>
+          <input type="text" id="formNameInput" class="text-input" placeholder="Crear Proveedor" />
+        </section>
+
+        <section class="card">
+          <div class="card-title-row">
+            <h2 class="card-title">Campos</h2>
+            <button id="registerFieldBtn" class="btn-mini">➕ Registrar campo</button>
+          </div>
+          <div id="fieldList" class="field-list">
+            <p id="fieldListEmpty" class="muted">Todavía no registraste ningún campo.</p>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2 class="card-title">Ejecución</h2>
+
+          <label class="check-row">
+            <input type="checkbox" id="stopOnMissingCheck" />
+            <span>☑ Detener si un elemento no existe</span>
+          </label>
+
+          <div class="field-row">
+            <span class="field-row-label">Tiempo entre acciones</span>
+            <select id="delaySelect" class="select-input">
+              <option value="0">0 ms</option>
+              <option value="100">100 ms</option>
+              <option value="250">250 ms</option>
+              <option value="500" selected>500 ms</option>
+              <option value="1000">1 segundo</option>
+              <option value="2000">2 segundos</option>
+              <option value="custom">Personalizado</option>
+            </select>
+          </div>
+          <input
+            type="number"
+            id="delayCustomInput"
+            class="text-input hidden"
+            min="0"
+            step="50"
+            placeholder="Milisegundos"
+          />
+
+          <div class="field-row">
+            <span class="field-row-label">Timeout esperando un elemento</span>
+            <select id="waitTimeoutSelect" class="select-input">
+              <option value="2000">2 s</option>
+              <option value="5000" selected>5 s</option>
+              <option value="10000">10 s</option>
+              <option value="20000">20 s</option>
+            </select>
+          </div>
+
+          <label class="check-row">
+            <input type="checkbox" id="reloadCheck" />
+            <span>☑ Recargar página al finalizar</span>
+          </label>
+          <div class="field-row" id="reloadDelayRow">
+            <span class="field-row-label">Tiempo antes de recargar</span>
+            <select id="reloadDelaySelect" class="select-input">
+              <option value="500">500 ms</option>
+              <option value="1000" selected>1 s</option>
+              <option value="2000">2 s</option>
+              <option value="3000">3 s</option>
+            </select>
+          </div>
+        </section>
+
+        <button id="saveFormBtn" class="btn btn-secondary">GUARDAR</button>
+        <button id="runFormBtn" class="btn btn-start">▶ EJECUTAR</button>
+        <button id="stopFormBtn" class="btn btn-stop hidden">■ DETENER</button>
+
+        <section class="status-box hidden" id="premiumStatusBox">
+          <div class="status-line">
+            <span id="premiumStatusDot" class="dot dot-idle"></span>
+            <span id="premiumStatusText">DETENIDO</span>
+          </div>
+          <div id="premiumProgressLine" class="countdown hidden"></div>
+          <div id="premiumErrorLine" class="error-line hidden"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="popup.js"></script>
+    <script src="popup-premium.js"></script>
+  </body>
+</html>
