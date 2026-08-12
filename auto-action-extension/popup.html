@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Auto Action</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="header">
+      <span class="logo">⚡</span>
+      <h1>Auto Action</h1>
+    </header>
+
+    <div id="pageWarning" class="banner banner-warning hidden"></div>
+
+    <main>
+      <section class="card">
+        <h2 class="card-title">Zona</h2>
+        <div id="zoneStatus" class="zone-status">
+          <span id="zoneStatusText">Ninguna zona seleccionada</span>
+        </div>
+        <button id="selectZoneBtn" class="btn btn-secondary">Seleccionar zona</button>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">Intervalo</h2>
+        <div class="chip-row" id="quickIntervals">
+          <button class="chip" data-seconds="30">30 s</button>
+          <button class="chip" data-seconds="60">1 min</button>
+          <button class="chip" data-seconds="120">2 min</button>
+          <button class="chip" data-seconds="180">3 min</button>
+          <button class="chip" data-seconds="300">5 min</button>
+          <button class="chip" data-seconds="600">10 min</button>
+        </div>
+        <div class="custom-row">
+          <button class="chip" id="customChip">Personalizado</button>
+          <input type="number" id="customValue" min="1" step="1" placeholder="3" />
+          <select id="customUnit">
+            <option value="seconds">segundos</option>
+            <option value="minutes" selected>minutos</option>
+            <option value="hours">horas</option>
+          </select>
+        </div>
+        <p id="intervalError" class="field-error hidden"></p>
+      </section>
+
+      <section class="card">
+        <h2 class="card-title">Acción</h2>
+        <label class="radio-row">
+          <input type="radio" name="action" value="click" />
+          <span>🖱️ Click izquierdo del mouse</span>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="action" value="holdClick" />
+          <span>🖱️ Click izquierdo mantenido durante 3 segundos</span>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="action" value="space" />
+          <span>␣ Presionar ESPACIO</span>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="action" value="enter" />
+          <span>↵ Presionar ENTER principal</span>
+        </label>
+        <label class="radio-row">
+          <input type="radio" name="action" value="numpadEnter" />
+          <span>⌨️ Presionar ENTER del teclado numérico</span>
+        </label>
+      </section>
+
+      <button id="startBtn" class="btn btn-start">▶ INICIAR</button>
+      <button id="stopBtn" class="btn btn-stop hidden">■ DETENER</button>
+
+      <section class="status-box" id="statusBox">
+        <div class="status-line">
+          <span id="statusDot" class="dot dot-idle"></span>
+          <span id="statusText">DETENIDO</span>
+        </div>
+        <div id="countdownLine" class="countdown hidden">
+          Próxima acción: <span id="countdownValue">--:--</span>
+        </div>
+        <div id="errorLine" class="error-line hidden"></div>
+      </section>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
