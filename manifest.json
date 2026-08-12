@@ -1,11 +1,15 @@
 {
   "manifest_version": 3,
   "name": "Auto Action – Automatizador de zona",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Selecciona una zona de una página web y ejecuta automáticamente click, click mantenido, Espacio o Enter (principal/numérico) en un intervalo configurable.",
-  "default_locale": "es",
-  "permissions": ["storage", "alarms"],
-  "host_permissions": ["<all_urls>"],
+  "permissions": [
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "background": {
     "service_worker": "background.js"
   },
@@ -25,8 +29,12 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_idle",
       "all_frames": false
     }

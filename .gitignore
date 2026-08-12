@@ -1,1 +1,3 @@
-.brave-test-profile/
+__pycache__/
+*.pyc
+/dist/
