@@ -201,9 +201,27 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
 // Mensajería con popup.js y content.js
 // ---------------------------------------------------------------------
 
+// Tipos que este listener conoce. Los demás (p. ej. "PREMIUM_*") se dejan
+// pasar sin responder, para que otro listener registrado en el mismo
+// contexto del service worker (ver premium-background.js, cargado abajo
+// con importScripts) pueda atenderlos. Si este listener respondiera a todo
+// por defecto, le "robaría" la respuesta a esos otros listeners: Chrome
+// entrega el mensaje a TODOS los listeners registrados, pero solo la
+// primera llamada a sendResponse() cuenta.
+const KNOWN_MESSAGE_TYPES = new Set([
+  "GET_STATE",
+  "SET_CONFIG",
+  "START",
+  "STOP",
+  "ZONE_SELECTED",
+  "ZONE_SELECTION_CANCELLED",
+]);
+
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (!KNOWN_MESSAGE_TYPES.has(msg?.type)) return; // lo maneja otro listener
+
   (async () => {
-    switch (msg?.type) {
+    switch (msg.type) {
       case "GET_STATE":
         sendResponse(await getState());
         break;
@@ -239,9 +257,12 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
       case "ZONE_SELECTION_CANCELLED":
         sendResponse({ ok: true });
         break;
-      default:
-        sendResponse({ ok: false, error: "unknown_message" });
     }
   })();
   return true; // todas las respuestas son asíncronas
 });
+
+// Módulo adicional del modo "Formulario Premium". Vive en su propio archivo
+// y registra su propio listener de mensajes (solo para tipos "PREMIUM_*");
+// no toca ni depende de nada de arriba.
+importScripts("premium-background.js");

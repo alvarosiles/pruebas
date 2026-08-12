@@ -33,7 +33,8 @@
         "<all_urls>"
       ],
       "js": [
-        "content.js"
+        "content.js",
+        "premium-content.js"
       ],
       "run_at": "document_idle",
       "all_frames": false
