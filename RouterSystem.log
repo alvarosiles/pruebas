@@ -1,0 +1,151 @@
+#This file shows the router's system log.
+001  2026-08-15 04:55:41       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+002  2026-08-15 04:55:41       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+003  2026-08-15 04:55:41       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+004  2026-08-15 04:55:41       dhcpc_eth1 DHCPC_BOUND get ip success
+005  2026-08-15 04:56:13             SNTP update time success
+006  2026-08-15 05:25:41       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+007  2026-08-15 05:25:41       dhcpc_eth1 DHCPC_STATE_RENEWING received
+008  2026-08-15 05:25:41       dhcpc_eth1 get new lease time: 3600 secs
+009  2026-08-15 05:25:41       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+010  2026-08-15 05:25:41       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+011  2026-08-15 05:25:41       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+012  2026-08-15 05:25:41       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+013  2026-08-15 05:25:41       dhcpc_eth1 DHCPC_BOUND get ip success
+014  2026-08-15 05:55:41       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+015  2026-08-15 05:55:41       dhcpc_eth1 DHCPC_STATE_RENEWING received
+016  2026-08-15 05:55:41       dhcpc_eth1 get new lease time: 3600 secs
+017  2026-08-15 05:55:41       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+018  2026-08-15 05:55:41       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+019  2026-08-15 05:55:41       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+020  2026-08-15 05:55:41       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+021  2026-08-15 05:55:41       dhcpc_eth1 DHCPC_BOUND get ip success
+022  2026-08-15 06:25:41       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+023  2026-08-15 06:25:41       dhcpc_eth1 DHCPC_STATE_RENEWING received
+024  2026-08-15 06:25:41       dhcpc_eth1 get new lease time: 3600 secs
+025  2026-08-15 06:25:41       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+026  2026-08-15 06:25:41       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+027  2026-08-15 06:25:41       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+028  2026-08-15 06:25:41       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+029  2026-08-15 06:25:41       dhcpc_eth1 DHCPC_BOUND get ip success
+030  2026-08-15 06:55:41       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+031  2026-08-15 06:55:41       dhcpc_eth1 DHCPC_STATE_RENEWING received
+032  2026-08-15 06:55:41       dhcpc_eth1 get new lease time: 3600 secs
+033  2026-08-15 06:55:41       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+034  2026-08-15 06:55:41       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+035  2026-08-15 06:55:41       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+036  2026-08-15 06:55:41       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+037  2026-08-15 06:55:41       dhcpc_eth1 DHCPC_BOUND get ip success
+038  2026-08-15 07:25:41       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+039  2026-08-15 07:25:41       dhcpc_eth1 DHCPC_STATE_RENEWING received
+040  2026-08-15 07:25:41       dhcpc_eth1 get new lease time: 3600 secs
+041  2026-08-15 07:25:41       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+042  2026-08-15 07:25:41       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+043  2026-08-15 07:25:41       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+044  2026-08-15 07:25:41       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+045  2026-08-15 07:25:41       dhcpc_eth1 DHCPC_BOUND get ip success
+046  2026-08-15 07:55:41       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+047  2026-08-15 07:55:41       dhcpc_eth1 DHCPC_STATE_RENEWING received
+048  2026-08-15 07:55:41       dhcpc_eth1 get new lease time: 3600 secs
+049  2026-08-15 07:55:41       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+050  2026-08-15 07:55:41       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+051  2026-08-15 07:55:41       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+052  2026-08-15 07:55:41       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+053  2026-08-15 07:55:41       dhcpc_eth1 DHCPC_BOUND get ip success
+054  2026-08-15 08:25:41       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+055  2026-08-15 08:25:41       dhcpc_eth1 DHCPC_STATE_RENEWING received
+056  2026-08-15 08:25:41       dhcpc_eth1 get new lease time: 3600 secs
+057  2026-08-15 08:25:41       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+058  2026-08-15 08:25:41       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+059  2026-08-15 08:25:41       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+060  2026-08-15 08:25:41       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+061  2026-08-15 08:25:41       dhcpc_eth1 DHCPC_BOUND get ip success
+062  2026-08-15 08:55:41       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+063  2026-08-15 08:55:41       dhcpc_eth1 DHCPC_STATE_RENEWING received
+064  2026-08-15 08:55:41       dhcpc_eth1 get new lease time: 3600 secs
+065  2026-08-15 08:55:41       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+066  2026-08-15 08:55:41       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+067  2026-08-15 08:55:41       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+068  2026-08-15 08:55:41       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+069  2026-08-15 08:55:41       dhcpc_eth1 DHCPC_BOUND get ip success
+070  2026-08-15 09:25:41       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+071  2026-08-15 09:25:42       dhcpc_eth1 DHCPC_STATE_RENEWING received
+072  2026-08-15 09:25:42       dhcpc_eth1 get new lease time: 3600 secs
+073  2026-08-15 09:25:42       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+074  2026-08-15 09:25:42       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+075  2026-08-15 09:25:42       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+076  2026-08-15 09:25:42       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+077  2026-08-15 09:25:42       dhcpc_eth1 DHCPC_BOUND get ip success
+078  2026-08-15 09:55:42       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+079  2026-08-15 09:55:42       dhcpc_eth1 DHCPC_STATE_RENEWING received
+080  2026-08-15 09:55:42       dhcpc_eth1 get new lease time: 3600 secs
+081  2026-08-15 09:55:42       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+082  2026-08-15 09:55:42       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+083  2026-08-15 09:55:42       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+084  2026-08-15 09:55:42       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+085  2026-08-15 09:55:42       dhcpc_eth1 DHCPC_BOUND get ip success
+086  2026-08-15 10:25:42       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+087  2026-08-15 10:25:42       dhcpc_eth1 DHCPC_STATE_RENEWING received
+088  2026-08-15 10:25:42       dhcpc_eth1 get new lease time: 3600 secs
+089  2026-08-15 10:25:42       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+090  2026-08-15 10:25:42       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+091  2026-08-15 10:25:42       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+092  2026-08-15 10:25:42       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+093  2026-08-15 10:25:42       dhcpc_eth1 DHCPC_BOUND get ip success
+094  2026-08-15 10:55:42       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+095  2026-08-15 10:55:42       dhcpc_eth1 DHCPC_STATE_RENEWING received
+096  2026-08-15 10:55:42       dhcpc_eth1 get new lease time: 3600 secs
+097  2026-08-15 10:55:42       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+098  2026-08-15 10:55:42       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+099  2026-08-15 10:55:42       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+100  2026-08-15 10:55:42       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+101  2026-08-15 10:55:42       dhcpc_eth1 DHCPC_BOUND get ip success
+102  2026-08-15 10:56:18             SNTP update time success
+103  2026-08-15 11:25:42       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+104  2026-08-15 11:25:42       dhcpc_eth1 DHCPC_STATE_RENEWING received
+105  2026-08-15 11:25:42       dhcpc_eth1 get new lease time: 3600 secs
+106  2026-08-15 11:25:42       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+107  2026-08-15 11:25:42       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+108  2026-08-15 11:25:42       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+109  2026-08-15 11:25:42       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+110  2026-08-15 11:25:42       dhcpc_eth1 DHCPC_BOUND get ip success
+111  2026-08-15 11:55:42       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+112  2026-08-15 11:55:43       dhcpc_eth1 DHCPC_STATE_RENEWING received
+113  2026-08-15 11:55:43       dhcpc_eth1 get new lease time: 3600 secs
+114  2026-08-15 11:55:43       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+115  2026-08-15 11:55:43       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+116  2026-08-15 11:55:43       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+117  2026-08-15 11:55:43       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+118  2026-08-15 11:55:43       dhcpc_eth1 DHCPC_BOUND get ip success
+119  2026-08-15 12:25:43       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+120  2026-08-15 12:25:43       dhcpc_eth1 DHCPC_STATE_RENEWING received
+121  2026-08-15 12:25:43       dhcpc_eth1 get new lease time: 3600 secs
+122  2026-08-15 12:25:43       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+123  2026-08-15 12:25:43       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+124  2026-08-15 12:25:43       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+125  2026-08-15 12:25:43       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+126  2026-08-15 12:25:43       dhcpc_eth1 DHCPC_BOUND get ip success
+127  2026-08-15 12:55:43       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+128  2026-08-15 12:55:44       dhcpc_eth1 DHCPC_STATE_RENEWING received
+129  2026-08-15 12:55:44       dhcpc_eth1 get new lease time: 3600 secs
+130  2026-08-15 12:55:44       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+131  2026-08-15 12:55:44       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+132  2026-08-15 12:55:44       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+133  2026-08-15 12:55:44       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+134  2026-08-15 12:55:44       dhcpc_eth1 DHCPC_BOUND get ip success
+135  2026-08-15 13:25:44       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+136  2026-08-15 13:25:44       dhcpc_eth1 DHCPC_STATE_RENEWING received
+137  2026-08-15 13:25:44       dhcpc_eth1 get new lease time: 3600 secs
+138  2026-08-15 13:25:44       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+139  2026-08-15 13:25:44       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+140  2026-08-15 13:25:44       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+141  2026-08-15 13:25:44       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+142  2026-08-15 13:25:44       dhcpc_eth1 DHCPC_BOUND get ip success
+143  2026-08-15 13:55:44       dhcpc_eth1 DHCPC_STATE_RENEWING sending
+144  2026-08-15 13:55:44       dhcpc_eth1 DHCPC_STATE_RENEWING received
+145  2026-08-15 13:55:44       dhcpc_eth1 get new lease time: 3600 secs
+146  2026-08-15 13:55:44       dhcpc_eth1 DHCPC_BOUND get ip=192.168.60.26
+147  2026-08-15 13:55:44       dhcpc_eth1 DHCPC_BOUND get subnet=255.255.255.0
+148  2026-08-15 13:55:44       dhcpc_eth1 DHCPC_BOUND get router=192.168.60.1
+149  2026-08-15 13:55:44       dhcpc_eth1 DHCPC_BOUND get dns=200.73.96.167 190.104.12.43
+150  2026-08-15 13:55:44       dhcpc_eth1 DHCPC_BOUND get ip success

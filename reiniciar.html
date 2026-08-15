@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Reiniciar Routers</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#1e1e1e; color:#eee; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; margin:0; gap:20px; padding:24px; }
+  h1 { font-size:20px; margin-bottom:0; }
+  .btn { width:280px; padding:18px; font-size:18px; border:none; border-radius:10px; cursor:pointer; color:#fff; text-align:center; text-decoration:none; display:block; }
+  .arris { background:#3498db; }
+  .arris:hover { background:#2980b9; }
+  .tenda { background:#e67e22; }
+  .tenda:hover { background:#d35400; }
+  .note { max-width:420px; font-size:13px; color:#aaa; text-align:center; line-height:1.5; }
+  .step { max-width:420px; background:#222; border-radius:10px; padding:16px 20px; font-size:13px; color:#ccc; }
+  .step b { color:#fff; }
+  code { background:#333; padding:1px 5px; border-radius:4px; }
+</style>
+</head>
+<body>
+  <h1>Reiniciar Routers</h1>
+
+  <a class="btn arris" href="http://192.168.60.1/?util_restart" target="_blank">
+    1. Abrir pantalla de reinicio Arris
+  </a>
+  <a class="btn arris" style="background:#1e6091" href="javascript:(function(){var els=document.querySelectorAll('input,button');for(var i=0;i<els.length;i++){var t=(els[i].value||els[i].textContent||'').trim().toLowerCase();if(t==='reiniciar'){els[i].click();alert('Reinicio enviado al Arris');return;}}alert('No encontré el botón Reiniciar en esta página. Asegúrate de estar en Utilidades > Reiniciar el Router.');})();">
+    2. Click aquí para reiniciar Arris (bookmarklet)
+  </a>
+
+  <a class="btn tenda" href="http://192.168.3.1/" target="_blank">
+    1. Abrir panel Tenda
+  </a>
+
+  <div class="step">
+    <b>Cómo usar el botón de reinicio automático (paso 2):</b><br>
+    Los navegadores no dejan que un archivo externo controle otra página web por seguridad.
+    Por eso el "click directo" tiene que ejecutarse dentro de la pestaña del router, como un marcador (bookmarklet):
+    <ol>
+      <li>Click en <b>"1. Abrir pantalla de reinicio Arris"</b> y loguéate si hace falta.</li>
+      <li>Arrastra el botón azul oscuro <b>"2. Click aquí para reiniciar Arris"</b> a tu barra de marcadores del navegador (Ctrl+Shift+B para mostrarla).</li>
+      <li>Desde ahora, estando en la pestaña del Arris, con un click en ese marcador se reinicia solo, sin tocar nada más.</li>
+    </ol>
+  </div>
+
+  <p class="note">
+    El Tenda usa una app interna (SPA) más compleja de detectar por texto; si quieres el mismo bookmarklet para él,
+    dime el texto exacto del botón de reinicio en su panel (System → Reboot) y lo agrego igual.
+  </p>
+</body>
+</html>

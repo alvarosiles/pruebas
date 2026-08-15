@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Reiniciar Routers</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#1e1e1e; color:#eee; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; margin:0; gap:24px; }
+  h1 { font-size:20px; margin-bottom:0; }
+  .btn { width:280px; padding:18px; font-size:18px; border:none; border-radius:10px; cursor:pointer; color:#fff; }
+  .arris { background:#c0392b; }
+  .arris:hover { background:#e74c3c; }
+  .tenda { background:#d35400; }
+  .tenda:hover { background:#e67e22; }
+  .note { max-width:320px; font-size:13px; color:#aaa; text-align:center; }
+</style>
+</head>
+<body>
+  <h1>Panel de Routers</h1>
+
+  <button class="btn arris" onclick="window.open('http://192.168.60.1/util_restart', '_blank')">
+    Reiniciar Arris
+  </button>
+
+  <button class="btn tenda" onclick="window.open('http://192.168.3.1/', '_blank')">
+    Reiniciar Tenda
+  </button>
+
+  <p class="note">
+    Cada botón abre el panel del router en una pestaña nueva.
+    Inicia sesión (admin / tu contraseña) y confirma el reinicio desde ahí.
+    Arris: menú Utilities → RestartRouter.
+    Tenda: menú System → Reboot.
+  </p>
+</body>
+</html>

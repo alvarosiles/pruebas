@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Panel de Red</title>
+<style>
+  :root{
+    --bg:#0d1117;
+    --panel:#161b22;
+    --panel-2:#1c2129;
+    --border:#2a313c;
+    --text:#e6edf3;
+    --muted:#8b949e;
+    --tenda:#f0883e;
+    --tenda-soft:rgba(240,136,62,.12);
+    --arris:#4aa3ff;
+    --arris-soft:rgba(74,163,255,.12);
+    --ok:#3fb950;
+  }
+  * { box-sizing:border-box; }
+  body{
+    margin:0;
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:
+      radial-gradient(1200px 600px at 20% -10%, rgba(74,163,255,.08), transparent),
+      radial-gradient(1200px 600px at 80% 110%, rgba(240,136,62,.08), transparent),
+      var(--bg);
+    color:var(--text);
+    padding:40px 20px 60px;
+  }
+  header{ text-align:center; margin-bottom:40px; }
+  header h1{ font-size:26px; margin:0 0 6px; letter-spacing:.3px; }
+  header p{ margin:0; color:var(--muted); font-size:14px; }
+
+  .grid{
+    display:flex;
+    gap:28px;
+    max-width:980px;
+    margin:0 auto;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:flex-start;
+  }
+  .card{
+    background:linear-gradient(180deg, var(--panel-2), var(--panel));
+    border:1px solid var(--border);
+    border-radius:16px;
+    width:440px;
+    overflow:hidden;
+    box-shadow:0 8px 24px rgba(0,0,0,.35);
+  }
+  .card-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:18px 22px;
+    border-bottom:1px solid var(--border);
+  }
+  .badge{
+    width:38px; height:38px;
+    border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:15px; color:#fff;
+    flex-shrink:0;
+  }
+  .tenda .badge{ background:var(--tenda); }
+  .arris .badge{ background:var(--arris); }
+  .card-head h2{ margin:0; font-size:16px; }
+  .card-head .sub{ margin:2px 0 0; font-size:12px; color:var(--muted); }
+  .status{
+    margin-left:auto;
+    display:flex; align-items:center; gap:6px;
+    font-size:11px; color:var(--ok); font-weight:600;
+  }
+  .dot{ width:7px; height:7px; border-radius:50%; background:var(--ok); box-shadow:0 0 6px var(--ok); }
+
+  .section-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--muted);
+    padding:16px 22px 4px;
+  }
+  table{ width:100%; border-collapse:collapse; }
+  td{ padding:7px 22px; font-size:13px; }
+  td.k{ color:var(--muted); width:48%; }
+  td.v{ color:var(--text); font-weight:500; word-break:break-word; text-align:right; }
+  tr:nth-child(even){ background:rgba(255,255,255,.02); }
+
+  .actions{ padding:18px 22px 22px; display:flex; gap:10px; }
+  .btn{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:600;
+    color:#fff;
+    cursor:pointer;
+    text-align:center;
+    text-decoration:none;
+    transition:transform .12s ease, filter .12s ease;
+  }
+  .btn:hover{ filter:brightness(1.1); transform:translateY(-1px); }
+  .tenda .btn{ background:var(--tenda); }
+  .arris .btn{ background:var(--arris); }
+  .btn.secondary{
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--text);
+  }
+
+  .tree{
+    margin:0 22px 16px;
+    background:rgba(255,255,255,.02);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:10px 4px;
+    font-size:13px;
+  }
+  .tree ul{ list-style:none; margin:0; padding-left:20px; }
+  .tree > ul{ padding-left:8px; }
+  .tree li{ position:relative; padding:3px 6px; }
+  .tree li.node > span{ cursor:default; }
+  .tree .ic{ margin-right:6px; }
+  .tree .leaf{ color:var(--muted); }
+  .tree .hl{
+    background:var(--arris-soft);
+    border-radius:6px;
+    display:inline-block;
+    padding:2px 8px;
+    color:var(--text);
+    font-weight:600;
+  }
+  .tenda .tree .hl{ background:var(--tenda-soft); }
+
+  .warn{
+    max-width:920px;
+    margin:32px auto 0;
+    padding:12px 18px;
+    border-radius:10px;
+    background:rgba(248,81,73,.08);
+    border:1px solid rgba(248,81,73,.3);
+    color:#ff9891;
+    font-size:12px;
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Panel de Red Doméstica</h1>
+    <p>Arris TG2482 (gateway principal) · Tenda (router en cascada)</p>
+  </header>
+
+  <div class="grid">
+
+    <div class="card arris">
+      <div class="card-head">
+        <div class="badge">A</div>
+        <div>
+          <h2>ARRIS TG2482</h2>
+          <p class="sub">Gateway principal · 192.168.60.1</p>
+        </div>
+        <div class="status"><span class="dot"></span>En línea</div>
+      </div>
+
+      <div class="section-label">Topología</div>
+      <table>
+        <tr><td class="k">Tipo de dispositivo</td><td class="v">Gateway</td></tr>
+        <tr><td class="k">Fabricante</td><td class="v">ARRIS Group, Inc.</td></tr>
+        <tr><td class="k">Modelo</td><td class="v">TG2482</td></tr>
+        <tr><td class="k">Número de modelo</td><td class="v">N/A</td></tr>
+        <tr><td class="k">Revisión de hardware</td><td class="v">8.0</td></tr>
+        <tr><td class="k">Revisión de software</td><td class="v">9.1.103GE4AL.SIP</td></tr>
+        <tr><td class="k">Número de serie</td><td class="v">2544D99ED811552</td></tr>
+        <tr><td class="k">Clientes conectados</td><td class="v">8</td></tr>
+      </table>
+
+      <div class="section-label">Topología de red</div>
+      <div class="tree">
+        <ul>
+          <li class="node"><span><span class="ic">📁</span>TG2482</span>
+            <ul>
+              <li class="node"><span><span class="ic">📁</span>Radio-2.4GHz</span>
+                <ul><li><span class="ic">📶</span>Azul1</li></ul>
+              </li>
+              <li class="node"><span><span class="ic">📁</span>Radio-5GHz</span>
+                <ul>
+                  <li><span class="ic">📶</span>Azul1</li>
+                  <li><span class="hl"><span class="ic">📶</span>WIFI-BACKHAUL</span></li>
+                </ul>
+              </li>
+              <li class="leaf"><span class="ic">🔌</span>Ethernet</li>
+              <li class="leaf"><span class="ic">🔌</span>Ethernet</li>
+              <li class="leaf"><span class="ic">🔌</span>Ethernet</li>
+              <li class="leaf"><span class="ic">🔌</span>Ethernet</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section-label">Conexión</div>
+      <table>
+        <tr><td class="k">ISP</td><td class="v">Tigo Bolivia (tigo.net.bo)</td></tr>
+        <tr><td class="k">IP WAN</td><td class="v">10.122.145.65 (CGNAT)</td></tr>
+        <tr><td class="k">MAC</td><td class="v">2C:00:AB:6E:5C:24</td></tr>
+        <tr><td class="k">DNS</td><td class="v">200.73.96.167 / 190.104.12.43</td></tr>
+        <tr><td class="k">SSID</td><td class="v">Azul1 (2.4GHz ch11 · 5GHz ch157)</td></tr>
+      </table>
+
+      <div class="section-label">Acceso</div>
+      <table>
+        <tr><td class="k">Usuario</td><td class="v">admin</td></tr>
+        <tr><td class="k">Contraseña</td><td class="v">alvaro</td></tr>
+      </table>
+
+      <div class="actions">
+        <a class="btn" href="http://192.168.60.1/?util_restart" target="_blank">Abrir reinicio</a>
+        <a class="btn secondary" href="http://192.168.60.1/" target="_blank">Panel principal</a>
+      </div>
+    </div>
+
+    <div class="card tenda">
+      <div class="card-head">
+        <div class="badge">T</div>
+        <div>
+          <h2>TENDA</h2>
+          <p class="sub">Router secundario · 192.168.3.1</p>
+        </div>
+        <div class="status"><span class="dot"></span>En línea</div>
+      </div>
+
+      <div class="section-label">Topología</div>
+      <table>
+        <tr><td class="k">Tipo de dispositivo</td><td class="v">Router (cascada)</td></tr>
+        <tr><td class="k">Fabricante</td><td class="v">Tenda</td></tr>
+        <tr><td class="k">Firmware</td><td class="v">V5.110.27.21</td></tr>
+        <tr><td class="k">Número de serie</td><td class="v">E7973010046003844</td></tr>
+      </table>
+
+      <div class="section-label">Topología de red</div>
+      <div class="tree">
+        <ul>
+          <li class="node"><span><span class="ic">📁</span>Tenda</span>
+            <ul>
+              <li class="node"><span><span class="ic">📁</span>WAN</span>
+                <ul><li><span class="hl"><span class="ic">🔌</span>Uplink → Arris (192.168.60.1)</span></li></ul>
+              </li>
+              <li class="node"><span><span class="ic">📁</span>Radio-2.4GHz</span>
+                <ul><li><span class="ic">📶</span>Paraguay🇵🇾</li></ul>
+              </li>
+              <li class="node"><span><span class="ic">📁</span>Radio-5GHz</span>
+                <ul><li><span class="ic">📶</span>Paraguay🇵🇾_5G</li></ul>
+              </li>
+              <li class="leaf"><span class="ic">🔌</span>LAN clientes cableados</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section-label">Conexión</div>
+      <table>
+        <tr><td class="k">IP WAN (hacia Arris)</td><td class="v">192.168.60.26</td></tr>
+        <tr><td class="k">Gateway upstream</td><td class="v">192.168.60.1</td></tr>
+        <tr><td class="k">SSID 2.4GHz</td><td class="v">Paraguay🇵🇾</td></tr>
+        <tr><td class="k">SSID 5GHz</td><td class="v">Paraguay🇵🇾_5G</td></tr>
+        <tr><td class="k">Rango DHCP</td><td class="v">192.168.3.100 – .200</td></tr>
+        <tr><td class="k">Reinicio automático</td><td class="v">3:00 – 5:00 AM</td></tr>
+      </table>
+
+      <div class="section-label">Acceso</div>
+      <table>
+        <tr><td class="k">Usuario</td><td class="v">admin</td></tr>
+        <tr><td class="k">Contraseña</td><td class="v">alvaro</td></tr>
+      </table>
+
+      <div class="actions">
+        <a class="btn" href="http://192.168.3.1/" target="_blank">Abrir panel</a>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="warn">
+    Este archivo contiene credenciales de tu red doméstica. No lo compartas ni lo subas a ningún servicio online.
+  </p>
+</body>
+</html>
