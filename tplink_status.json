@@ -1,19 +1,45 @@
 {
   "ok": true,
-  "status": {
-    "firmware": "3.16.9 Build 20170116 Rel.50912n",
-    "hardware": "TL-WR941HP v1 00000000",
-    "mac": "C0-25-E9-97-90-10",
-    "ip": "192.168.60.21",
-    "subnet_mask": "255.255.255.0",
-    "ssid": "Azul3",
-    "channel": "Automatico (Canal actual 9)",
-    "wifi_mode": "11b/g/n mixto",
-    "channel_width": "Automatico",
-    "rx_bytes": 3747680747,
-    "tx_bytes": 1773163823,
-    "rx_packets": 41415224,
-    "tx_packets": 109152798,
-    "uptime": "10 dias 05:57:41"
-  }
+  "devices": [
+    {
+      "ok": true,
+      "host": "192.168.60.21",
+      "status": {
+        "firmware": "3.16.9 Build 20170116 Rel.50912n",
+        "hardware": "TL-WR941HP v1 00000000",
+        "mac": "C0-25-E9-97-90-10",
+        "ip": "192.168.60.21",
+        "subnet_mask": "255.255.255.0",
+        "ssid": "Azul3",
+        "channel": "Automatico (Canal actual 9)",
+        "wifi_mode": "11b/g/n mixto",
+        "channel_width": "Automatico",
+        "rx_bytes": 3778423178,
+        "tx_bytes": 2247729081,
+        "rx_packets": 41563421,
+        "tx_packets": 109528027,
+        "uptime": "10 dias 06:41:00"
+      }
+    },
+    {
+      "ok": true,
+      "host": "192.168.60.37",
+      "status": {
+        "firmware": "3.16.9 Build 20170116 Rel.50912n",
+        "hardware": "TL-WR941HP v1 00000000",
+        "mac": "18-D6-C7-C6-DA-72",
+        "ip": "192.168.60.37",
+        "subnet_mask": "255.255.255.0",
+        "ssid": "Azul2",
+        "channel": "Automatico (Canal actual 5)",
+        "wifi_mode": "11b/g/n mixto",
+        "channel_width": "Automatico",
+        "rx_bytes": 124515144,
+        "tx_bytes": 3649473061,
+        "rx_packets": 828647,
+        "tx_packets": 2478901,
+        "uptime": "0 dias 00:34:18"
+      }
+    }
+  ]
 }

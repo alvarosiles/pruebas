@@ -417,17 +417,22 @@ canvas.big-chart{width:100%;height:180px;display:block;}
       <div class="topo-link"></div>
       <div class="topo-node" onclick="showDetail('arris')">
         <div class="n-icon gateway"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><line x1="6" y1="21" x2="6" y2="17"/><line x1="18" y1="21" x2="18" y2="17"/><circle cx="7" cy="12" r="1"/><circle cx="11" cy="12" r="1"/></svg><span class="n-status"></span></div>
-        <div class="n-label">ARRIS TG2482</div><div class="n-sub">192.168.60.1</div>
+        <div class="n-label">ARRIS TG2482</div><div class="n-sub">Piso 1 · 192.168.60.1</div>
       </div>
       <div class="topo-link"></div>
       <div class="topo-node" onclick="showDetail('tenda')">
         <div class="n-icon router"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><line x1="6" y1="21" x2="6" y2="17"/><line x1="18" y1="21" x2="18" y2="17"/><circle cx="7" cy="12" r="1"/><circle cx="11" cy="12" r="1"/></svg><span class="n-status"></span></div>
-        <div class="n-label">TENDA</div><div class="n-sub">192.168.3.1</div>
+        <div class="n-label">TENDA</div><div class="n-sub">Of. Ing. Alvaro · 192.168.3.1</div>
       </div>
       <div class="topo-link"></div>
       <div class="topo-node" onclick="showDetail('tplink')">
         <div class="n-icon router"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><line x1="6" y1="21" x2="6" y2="17"/><line x1="18" y1="21" x2="18" y2="17"/><circle cx="7" cy="12" r="1"/><circle cx="11" cy="12" r="1"/></svg><span class="n-status"></span></div>
-        <div class="n-label">TP-Link TL-WR941HP</div><div class="n-sub">192.168.60.21</div>
+        <div class="n-label">TP-Link (Azul3)</div><div class="n-sub">Piso 2 · 192.168.60.21</div>
+      </div>
+      <div class="topo-link"></div>
+      <div class="topo-node" onclick="showDetail('tplink2')">
+        <div class="n-icon router"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><line x1="6" y1="21" x2="6" y2="17"/><line x1="18" y1="21" x2="18" y2="17"/><circle cx="7" cy="12" r="1"/><circle cx="11" cy="12" r="1"/></svg><span class="n-status"></span></div>
+        <div class="n-label">TP-Link (Azul2)</div><div class="n-sub">Piso 3 · 192.168.60.37</div>
       </div>
       <div class="topo-link"></div>
       <div class="topo-node" onclick="showDetail('clients')">
@@ -438,6 +443,7 @@ canvas.big-chart{width:100%;height:180px;display:block;}
 
     <div class="detail-panel" id="detail-internet">
       <div class="detail-grid">
+        <div class="dt" style="grid-column:1/-1"><span class="k">Descripción</span><span class="v">Conexión a internet por cable (DOCSIS) contratada con Tigo Bolivia. Es el punto de entrada de toda la red.</span></div>
         <div class="dt"><span class="k">ISP</span><span class="v">Tigo Bolivia (tigo.net.bo)</span></div>
         <div class="dt"><span class="k">Tipo de conexión</span><span class="v">DOCSIS / Cable</span></div>
         <div class="dt"><span class="k">IP WAN</span><span class="v">10.122.145.65 (CGNAT)</span></div>
@@ -447,6 +453,8 @@ canvas.big-chart{width:100%;height:180px;display:block;}
 
     <div class="detail-panel" id="detail-arris">
       <div class="detail-grid">
+        <div class="dt"><span class="k">Ubicación</span><span class="v">Piso 1</span></div>
+        <div class="dt" style="grid-column:1/-1"><span class="k">Descripción</span><span class="v">Módem-router principal (gateway). Convierte la señal del cable coaxial de Tigo en la red LAN de la casa; de aquí cuelgan el TENDA y ambos AP TP-Link.</span></div>
         <div class="dt"><span class="k">Fabricante</span><span class="v">ARRIS Group, Inc.</span></div>
         <div class="dt"><span class="k">Modelo</span><span class="v">TG2482</span></div>
         <div class="dt"><span class="k">Tipo</span><span class="v">Gateway (Módem-Router)</span></div>
@@ -466,6 +474,8 @@ canvas.big-chart{width:100%;height:180px;display:block;}
 
     <div class="detail-panel" id="detail-tenda">
       <div class="detail-grid">
+        <div class="dt"><span class="k">Ubicación</span><span class="v">Oficina Ing. Alvaro</span></div>
+        <div class="dt" style="grid-column:1/-1"><span class="k">Descripción</span><span class="v">Router en cascada conectado por Ethernet al ARRIS. Extiende la red a esta zona con su propio WiFi (192.168.3.x).</span></div>
         <div class="dt"><span class="k">Fabricante</span><span class="v">Tenda</span></div>
         <div class="dt"><span class="k">Tipo</span><span class="v">Router (cascada)</span></div>
         <div class="dt"><span class="k">IP LAN</span><span class="v">192.168.3.1</span></div>
@@ -484,6 +494,8 @@ canvas.big-chart{width:100%;height:180px;display:block;}
 
     <div class="detail-panel" id="detail-tplink">
       <div class="detail-grid">
+        <div class="dt"><span class="k">Ubicación</span><span class="v">Piso 2</span></div>
+        <div class="dt" style="grid-column:1/-1"><span class="k">Descripción</span><span class="v">Punto de acceso WiFi "Azul3" conectado por cable Ethernet. Amplía cobertura inalámbrica en su zona, sin hacer NAT ni DHCP propio.</span></div>
         <div class="dt"><span class="k">Fabricante</span><span class="v">TP-Link</span></div>
         <div class="dt"><span class="k">Modelo</span><span class="v">TL-WR941HP v1</span></div>
         <div class="dt"><span class="k">Tipo</span><span class="v">Punto de acceso (cascada, cable Ethernet)</span></div>
@@ -498,6 +510,27 @@ canvas.big-chart{width:100%;height:180px;display:block;}
         <div class="dt"><span class="k">Tráfico enviado</span><span class="v" id="tpTx">1,771,985,755 B / 109,146,057 pkts</span></div>
         <div class="dt"><span class="k">Estado</span><span class="v"><span class="badge-status online">● Online</span></span></div>
         <div class="dt" style="grid-column:1/-1;font-size:10.5px;color:var(--muted)" id="tpFetchedAt"></div>
+      </div>
+    </div>
+
+    <div class="detail-panel" id="detail-tplink2">
+      <div class="detail-grid">
+        <div class="dt"><span class="k">Ubicación</span><span class="v">Piso 3</span></div>
+        <div class="dt" style="grid-column:1/-1"><span class="k">Descripción</span><span class="v">Punto de acceso WiFi "Azul2" conectado por cable Ethernet. Amplía cobertura inalámbrica en otra zona de la casa.</span></div>
+        <div class="dt"><span class="k">Fabricante</span><span class="v">TP-Link</span></div>
+        <div class="dt"><span class="k">Modelo</span><span class="v">TL-WR941HP v1</span></div>
+        <div class="dt"><span class="k">Tipo</span><span class="v">Access Point</span></div>
+        <div class="dt"><span class="k">IP LAN</span><span class="v">192.168.60.37</span></div>
+        <div class="dt"><span class="k">Dirección MAC</span><span class="v">18-D6-C7-C6-DA-72</span></div>
+        <div class="dt"><span class="k">Firmware</span><span class="v">3.16.9 Build 20170116 Rel.50912n</span></div>
+        <div class="dt"><span class="k">SSID</span><span class="v">Azul2</span></div>
+        <div class="dt"><span class="k">Canal WiFi</span><span class="v" id="tp2Channel">Automático (actual: 5)</span></div>
+        <div class="dt"><span class="k">Modo WiFi</span><span class="v" id="tp2Mode">11b/g/n mixto</span></div>
+        <div class="dt"><span class="k">Uptime</span><span class="v" id="tp2Uptime">0d 00h 11m</span></div>
+        <div class="dt"><span class="k">Tráfico recibido</span><span class="v" id="tp2Rx">33,484,035 B / 249,886 pkts</span></div>
+        <div class="dt"><span class="k">Tráfico enviado</span><span class="v" id="tp2Tx">1,008,040,966 B / 690,292 pkts</span></div>
+        <div class="dt"><span class="k">Estado</span><span class="v"><span class="badge-status online">● Online</span></span></div>
+        <div class="dt" style="grid-column:1/-1;font-size:10.5px;color:var(--muted)" id="tp2FetchedAt"></div>
       </div>
     </div>
 
@@ -717,9 +750,10 @@ canvas.big-chart{width:100%;height:180px;display:block;}
     <table class="data">
       <thead><tr><th>Dispositivo</th><th>Tipo</th><th>URL</th><th>Usuario</th><th>Contraseña</th></tr></thead>
       <tbody>
-        <tr><td>ARRIS TG2482</td><td>Gateway (Módem-Router)</td><td>http://192.168.60.1/</td><td>admin</td><td>alvaro</td></tr>
-        <tr><td>TENDA (cascada)</td><td>Router</td><td>http://192.168.3.1/</td><td colspan="2" style="color:var(--muted)">no guardado en el repo — ingrésalo manualmente</td></tr>
-        <tr><td>TP-Link TL-WR941HP</td><td>Access Point</td><td>http://192.168.60.21/</td><td>admin</td><td>alvaro</td></tr>
+        <tr><td>ARRIS TG2482</td><td>Gateway (Módem-Router)</td><td><a href="http://192.168.60.1/" target="_blank" style="color:var(--blue)">192.168.60.1 ↗</a></td><td>admin</td><td>alvaro</td></tr>
+        <tr><td>TENDA (cascada)</td><td>Router</td><td><a href="http://192.168.3.1/" target="_blank" style="color:var(--blue)">192.168.3.1 ↗</a></td><td>admin</td><td>alvaro</td></tr>
+        <tr><td>TP-Link TL-WR941HP (Azul3)</td><td>Access Point</td><td><a href="http://192.168.60.21/" target="_blank" style="color:var(--blue)">192.168.60.21 ↗</a></td><td>admin</td><td>alvaro</td></tr>
+        <tr><td>TP-Link TL-WR941HP (Azul2)</td><td>Access Point</td><td><a href="http://192.168.60.37/" target="_blank" style="color:var(--blue)">192.168.60.37 ↗</a></td><td>admin</td><td>alvaro</td></tr>
       </tbody>
     </table>
   </div>
@@ -1171,18 +1205,23 @@ loadRealClients();
 
 /* ---------- TP-Link real (tplink_status_scrape.py -> tplink_status.json) ---------- */
 function fmtNum(n){ return n==null ? '–' : n.toLocaleString('es-BO'); }
+const TPLINK_ID_PREFIX = {'192.168.60.21':'tp', '192.168.60.37':'tp2'};
 async function loadTplinkStatus(){
   try{
     const r = await fetch('/api/tplink-status');
     const d = await r.json();
-    if(!d.ok) throw new Error(d.error||'sin datos');
-    const s = d.status;
-    document.getElementById('tpChannel').textContent = s.channel;
-    document.getElementById('tpMode').textContent = s.wifi_mode;
-    document.getElementById('tpUptime').textContent = s.uptime;
-    document.getElementById('tpRx').textContent = `${fmtNum(s.rx_bytes)} B / ${fmtNum(s.rx_packets)} pkts`;
-    document.getElementById('tpTx').textContent = `${fmtNum(s.tx_bytes)} B / ${fmtNum(s.tx_packets)} pkts`;
-    document.getElementById('tpFetchedAt').textContent = 'Última lectura real: ' + new Date().toLocaleTimeString('es-BO') + ' (ejecuta tplink_status_scrape.py para refrescar)';
+    if(!d.ok || !Array.isArray(d.devices)) throw new Error(d.error||'sin datos');
+    d.devices.forEach(dev=>{
+      const prefix = TPLINK_ID_PREFIX[dev.host];
+      if(!prefix || !dev.ok) return;
+      const s = dev.status;
+      document.getElementById(prefix+'Channel').textContent = s.channel;
+      document.getElementById(prefix+'Mode').textContent = s.wifi_mode;
+      document.getElementById(prefix+'Uptime').textContent = s.uptime;
+      document.getElementById(prefix+'Rx').textContent = `${fmtNum(s.rx_bytes)} B / ${fmtNum(s.rx_packets)} pkts`;
+      document.getElementById(prefix+'Tx').textContent = `${fmtNum(s.tx_bytes)} B / ${fmtNum(s.tx_packets)} pkts`;
+      document.getElementById(prefix+'FetchedAt').textContent = 'Última lectura real: ' + new Date().toLocaleTimeString('es-BO') + ' (ejecuta tplink_status_scrape.py para refrescar)';
+    });
   }catch(e){
     console.warn('No se pudo leer /api/tplink-status (¿corriste tplink_status_scrape.py?):', e.message);
   }

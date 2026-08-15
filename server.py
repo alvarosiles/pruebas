@@ -127,6 +127,7 @@ def compute_downstream_mbps(downstream):
 
 CLIENTS_FILE = "arris_clients.json"
 TPLINK_FILE = "tplink_status.json"
+TENDA_FILE = "tenda_status.json"
 
 
 def serve_json_file(handler, path, missing_hint):

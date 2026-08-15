@@ -1,0 +1,22 @@
+{
+  "ok": true,
+  "status": {
+    "online_devices": "8",
+    "down_speed_mbps": "1",
+    "up_speed_mbps": "0",
+    "router_name": "Paraguay🇵🇾",
+    "wan_mac": "08:40:F3:2D:06:69",
+    "lan_ip": "192.168.3.1",
+    "wan_ip": "192.168.60.26",
+    "wan_gateway": "192.168.60.1",
+    "dns1": "200.73.96.167",
+    "dns2": "190.104.12.43",
+    "firmware": "V03.03.14.02_multi",
+    "wan_connect_seconds": "17309",
+    "ssid_24": "Paraguay🇵🇾",
+    "ssid_5g": "Paraguay🇵🇾_5G",
+    "wifi_password": "alvarosiles.",
+    "wifi_security": "WPA2/AES",
+    "system_time": "2026-08-15 18:44:18"
+  }
+}
