@@ -46,14 +46,15 @@ def main():
             raise SystemExit("Login falló: isLoggedIn() devolvió false. Revisa usuario/contraseña.")
         print("   Login confirmado (isLoggedIn() == true).")
 
+        is95x = page.evaluate("typeof is95x === 'function' && !!is95x()")
+        print(f"   is95x() = {is95x}")
+
         if DRY_RUN:
-            print(f"[--dry-run] Listo para enviar snmpSet1('{REBOOT_OID}', '1', '2'). No se ejecuta.")
+            print("[--dry-run] Listo para llamar a reboot(). No se ejecuta.")
         else:
-            print("2) Enviando comando de reinicio...")
-            result = page.evaluate(
-                "(oid) => snmpSet1(oid, '1', '2')", REBOOT_OID
-            )
-            print("   Resultado:", result)
+            print("2) Llamando a reboot() (misma función que el botón real)...")
+            page.evaluate("reboot()")
+            page.wait_for_timeout(2000)
             print("Listo. El ARRIS debería estar reiniciando ahora.")
 
         browser.close()

@@ -306,6 +306,14 @@ canvas.big-chart{width:100%;height:180px;display:block;}
 /* ---------- Footer note ---------- */
 .foot-note{text-align:center;color:var(--muted-2);font-size:11.5px;margin-top:30px;}
 
+/* ---------- Simulated data marker ---------- */
+.sim{opacity:.45;}
+.sim-block{opacity:.5;}
+.sim-banner{
+  display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted);
+  background:var(--panel-2);border:1px dashed var(--border);border-radius:8px;padding:8px 12px;margin-bottom:10px;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width:900px){
   .device-cards{grid-template-columns:1fr;}
@@ -333,10 +341,10 @@ canvas.big-chart{width:100%;height:180px;display:block;}
       </div>
     </div>
     <div class="top-stats">
-      <div class="top-stat"><div class="lbl">Uptime</div><div class="val">18d 6h</div></div>
-      <div class="top-stat"><div class="lbl">Latencia</div><div class="val green">14 ms</div></div>
-      <div class="top-stat"><div class="lbl">Descarga</div><div class="val blue">182 Mbps</div></div>
-      <div class="top-stat"><div class="lbl">Subida</div><div class="val blue">38 Mbps</div></div>
+      <div class="top-stat sim" title="Dato simulado, no proviene del router real"><div class="lbl">Uptime</div><div class="val">18d 6h</div></div>
+      <div class="top-stat sim" title="Dato simulado, no proviene del router real"><div class="lbl">Latencia</div><div class="val green">14 ms</div></div>
+      <div class="top-stat sim" title="Dato simulado, no proviene del router real"><div class="lbl">Descarga</div><div class="val blue">182 Mbps</div></div>
+      <div class="top-stat sim" title="Dato simulado, no proviene del router real"><div class="lbl">Subida</div><div class="val blue">38 Mbps</div></div>
       <div class="top-stat"><div class="lbl">Actualizado</div><div class="val" id="lastUpdate">hace 4 s</div></div>
     </div>
     <div class="top-actions">
@@ -356,31 +364,31 @@ canvas.big-chart{width:100%;height:180px;display:block;}
       <div class="m-icon icon-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
       <div class="m-lbl">Internet</div><div class="m-val" style="color:var(--green)">Online</div><div class="m-sub">Tigo Bolivia · CGNAT</div>
     </div>
-    <div class="metric-card">
+    <div class="metric-card sim" title="Dato simulado, no proviene del router real">
       <div class="m-icon icon-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="19 12 12 19 5 12"/><line x1="12" y1="19" x2="12" y2="5"/></svg></div>
       <div class="m-lbl">Download</div><div class="m-val">182 Mbps<span class="trend up">▲2%</span></div><div class="m-sub">Prom. 24h: 165 Mbps</div>
     </div>
-    <div class="metric-card">
+    <div class="metric-card sim" title="Dato simulado, no proviene del router real">
       <div class="m-icon icon-orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 12 12 5 19 12"/><line x1="12" y1="5" x2="12" y2="19"/></svg></div>
       <div class="m-lbl">Upload</div><div class="m-val">38 Mbps<span class="trend down">▼1%</span></div><div class="m-sub">Prom. 24h: 39 Mbps</div>
     </div>
-    <div class="metric-card">
+    <div class="metric-card sim" title="Dato simulado, no proviene del router real">
       <div class="m-icon icon-yellow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
       <div class="m-lbl">Latency</div><div class="m-val">14 ms</div><div class="m-sub">Jitter: 2.1 ms</div>
     </div>
-    <div class="metric-card">
+    <div class="metric-card sim" title="Dato simulado, no proviene del router real">
       <div class="m-icon icon-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
       <div class="m-lbl">Connected Devices</div><div class="m-val">14</div><div class="m-sub">8 Arris · 6 Tenda</div>
     </div>
-    <div class="metric-card">
+    <div class="metric-card sim" title="Dato simulado, no proviene del router real">
       <div class="m-icon icon-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/></svg></div>
       <div class="m-lbl">Wi-Fi Clients</div><div class="m-val">10</div><div class="m-sub">2.4GHz: 4 · 5GHz: 6</div>
     </div>
-    <div class="metric-card">
+    <div class="metric-card sim" title="Dato simulado, no proviene del router real">
       <div class="m-icon icon-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><line x1="6" y1="21" x2="6" y2="17"/><line x1="18" y1="21" x2="18" y2="17"/></svg></div>
       <div class="m-lbl">Ethernet Clients</div><div class="m-val">4</div><div class="m-sub">Todos estables</div>
     </div>
-    <div class="metric-card">
+    <div class="metric-card sim" title="Dato simulado, no proviene del router real">
       <div class="m-icon icon-yellow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
       <div class="m-lbl">Network Uptime</div><div class="m-val">18 días</div><div class="m-sub">Sin caídas recientes</div>
     </div>
@@ -388,7 +396,7 @@ canvas.big-chart{width:100%;height:180px;display:block;}
       <div class="m-icon icon-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
       <div class="m-lbl">WAN IP</div><div class="m-val" style="font-size:14px">10.122.145.65</div><div class="m-sub">CGNAT</div>
     </div>
-    <div class="metric-card">
+    <div class="metric-card sim" title="Dato simulado, no proviene del router real">
       <div class="m-icon icon-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M6 12h.01"/></svg></div>
       <div class="m-lbl">Public IP</div><div class="m-val" style="font-size:14px">190.104.xx.xx</div><div class="m-sub">La Paz, BO</div>
     </div>
@@ -442,11 +450,11 @@ canvas.big-chart{width:100%;height:180px;display:block;}
         <div class="dt"><span class="k">MAC Address</span><span class="v">2C:00:AB:6E:5C:24</span></div>
         <div class="dt"><span class="k">Firmware</span><span class="v">9.1.103GE4AL.SIP</span></div>
         <div class="dt"><span class="k">Hardware Rev.</span><span class="v">8.0</span></div>
-        <div class="dt"><span class="k">Uptime</span><span class="v">18d 6h 12m</span></div>
-        <div class="dt"><span class="k">CPU</span><span class="v">27%</span></div>
-        <div class="dt"><span class="k">RAM</span><span class="v">54%</span></div>
-        <div class="dt"><span class="k">Temperatura</span><span class="v">48°C</span></div>
-        <div class="dt"><span class="k">Clientes</span><span class="v">8</span></div>
+        <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">Uptime</span><span class="v">18d 6h 12m</span></div>
+        <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">CPU</span><span class="v">27%</span></div>
+        <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">RAM</span><span class="v">54%</span></div>
+        <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">Temperatura</span><span class="v">48°C</span></div>
+        <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">Clientes</span><span class="v">8</span></div>
         <div class="dt"><span class="k">Estado</span><span class="v"><span class="badge-status online">● Online</span></span></div>
       </div>
     </div>
@@ -460,11 +468,11 @@ canvas.big-chart{width:100%;height:180px;display:block;}
         <div class="dt"><span class="k">Gateway upstream</span><span class="v">192.168.60.1</span></div>
         <div class="dt"><span class="k">Firmware</span><span class="v">V5.110.27.21</span></div>
         <div class="dt"><span class="k">Número de serie</span><span class="v">E7973010046003844</span></div>
-        <div class="dt"><span class="k">Uptime</span><span class="v">6d 2h</span></div>
-        <div class="dt"><span class="k">CPU</span><span class="v">19%</span></div>
-        <div class="dt"><span class="k">RAM</span><span class="v">41%</span></div>
-        <div class="dt"><span class="k">Link Speed (uplink)</span><span class="v">1 Gbps Full-Duplex</span></div>
-        <div class="dt"><span class="k">Clientes</span><span class="v">6</span></div>
+        <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">Uptime</span><span class="v">6d 2h</span></div>
+        <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">CPU</span><span class="v">19%</span></div>
+        <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">RAM</span><span class="v">41%</span></div>
+        <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">Link Speed (uplink)</span><span class="v">1 Gbps Full-Duplex</span></div>
+        <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">Clientes</span><span class="v">6</span></div>
         <div class="dt"><span class="k">Estado</span><span class="v"><span class="badge-status online">● Online</span></span></div>
       </div>
     </div>
@@ -499,10 +507,10 @@ canvas.big-chart{width:100%;height:180px;display:block;}
           <tr><td class="k">DNS</td><td class="v">200.73.96.167 / 190.104.12.43</td></tr>
           <tr><td class="k">Firmware</td><td class="v">9.1.103GE4AL.SIP</td></tr>
           <tr><td class="k">Serial</td><td class="v">2544D99ED811552</td></tr>
-          <tr><td class="k">Uptime</td><td class="v">18d 6h 12m</td></tr>
+          <tr class="sim" title="Dato simulado, no proviene del router real"><td class="k">Uptime</td><td class="v">18d 6h 12m</td></tr>
         </table>
       </div>
-      <div class="res-bars">
+      <div class="res-bars sim-block" title="Datos simulados, no provienen del router real">
         <div class="res-bar-item">
           <div class="rb-head"><span>CPU</span><span>27%</span></div>
           <div class="res-bar-track"><div class="res-bar-fill" style="width:27%;background:var(--blue)"></div></div>
@@ -516,7 +524,7 @@ canvas.big-chart{width:100%;height:180px;display:block;}
           <div class="res-bar-track"><div class="res-bar-fill" style="width:48%;background:var(--green)"></div></div>
         </div>
       </div>
-      <div class="mini-charts">
+      <div class="mini-charts sim-block" title="Datos simulados, no provienen del router real">
         <div class="mini-chart-box"><div class="mc-head"><span>Download</span><b>182 Mbps</b></div><canvas class="spark" data-series="down" data-color="#4C8DFF"></canvas></div>
         <div class="mini-chart-box"><div class="mc-head"><span>Upload</span><b>38 Mbps</b></div><canvas class="spark" data-series="up" data-color="#F0883E"></canvas></div>
         <div class="mini-chart-box"><div class="mc-head"><span>Latency</span><b>14 ms</b></div><canvas class="spark" data-series="lat" data-color="#E3B341"></canvas></div>
@@ -547,10 +555,10 @@ canvas.big-chart{width:100%;height:180px;display:block;}
           <tr><td class="k">Serial</td><td class="v">E7973010046003844</td></tr>
           <tr><td class="k">Rango DHCP</td><td class="v">192.168.3.100 – .200</td></tr>
           <tr><td class="k">Reinicio automático</td><td class="v">3:00 – 5:00 AM</td></tr>
-          <tr><td class="k">Uptime</td><td class="v">6d 2h</td></tr>
+          <tr class="sim" title="Dato simulado, no proviene del router real"><td class="k">Uptime</td><td class="v">6d 2h</td></tr>
         </table>
       </div>
-      <div class="res-bars">
+      <div class="res-bars sim-block" title="Datos simulados, no provienen del router real">
         <div class="res-bar-item">
           <div class="rb-head"><span>CPU</span><span>19%</span></div>
           <div class="res-bar-track"><div class="res-bar-fill" style="width:19%;background:var(--blue)"></div></div>
@@ -564,7 +572,7 @@ canvas.big-chart{width:100%;height:180px;display:block;}
           <div class="res-bar-track"><div class="res-bar-fill" style="width:80%;background:var(--green)"></div></div>
         </div>
       </div>
-      <div class="mini-charts">
+      <div class="mini-charts sim-block" title="Datos simulados, no provienen del router real">
         <div class="mini-chart-box"><div class="mc-head"><span>Download</span><b>176 Mbps</b></div><canvas class="spark" data-series="down2" data-color="#4C8DFF"></canvas></div>
         <div class="mini-chart-box"><div class="mc-head"><span>Upload</span><b>36 Mbps</b></div><canvas class="spark" data-series="up2" data-color="#F0883E"></canvas></div>
         <div class="mini-chart-box"><div class="mc-head"><span>Backhaul link</span><b>866 Mbps</b></div><canvas class="spark" data-series="bh" data-color="#3FD17A"></canvas></div>
@@ -595,9 +603,9 @@ canvas.big-chart{width:100%;height:180px;display:block;}
       <div class="wifi-info-card"><div class="lbl">Ancho de canal</div><div class="val">20 MHz</div></div>
       <div class="wifi-info-card"><div class="lbl">Protocolo</div><div class="val">802.11n</div></div>
       <div class="wifi-info-card"><div class="lbl">Seguridad</div><div class="val">WPA2-PSK</div></div>
-      <div class="wifi-info-card"><div class="lbl">Potencia Tx</div><div class="val">20 dBm</div></div>
-      <div class="wifi-info-card"><div class="lbl">Noise Floor</div><div class="val">-92 dBm</div></div>
-      <div class="wifi-info-card"><div class="lbl">Interferencia</div><div class="val" style="color:var(--yellow)">Moderada</div></div>
+      <div class="wifi-info-card sim" title="Dato simulado, no proviene del router real"><div class="lbl">Potencia Tx</div><div class="val">20 dBm</div></div>
+      <div class="wifi-info-card sim" title="Dato simulado, no proviene del router real"><div class="lbl">Noise Floor</div><div class="val">-92 dBm</div></div>
+      <div class="wifi-info-card sim" title="Dato simulado, no proviene del router real"><div class="lbl">Interferencia</div><div class="val" style="color:var(--yellow)">Moderada</div></div>
     </div>
   </div>
   <div class="tab-panel" id="wifi-5">
@@ -607,25 +615,26 @@ canvas.big-chart{width:100%;height:180px;display:block;}
       <div class="wifi-info-card"><div class="lbl">Ancho de canal</div><div class="val">80 MHz</div></div>
       <div class="wifi-info-card"><div class="lbl">Protocolo</div><div class="val">802.11ac</div></div>
       <div class="wifi-info-card"><div class="lbl">Seguridad</div><div class="val">WPA2-PSK</div></div>
-      <div class="wifi-info-card"><div class="lbl">Potencia Tx</div><div class="val">23 dBm</div></div>
-      <div class="wifi-info-card"><div class="lbl">Noise Floor</div><div class="val">-95 dBm</div></div>
-      <div class="wifi-info-card"><div class="lbl">Interferencia</div><div class="val" style="color:var(--green)">Baja</div></div>
+      <div class="wifi-info-card sim" title="Dato simulado, no proviene del router real"><div class="lbl">Potencia Tx</div><div class="val">23 dBm</div></div>
+      <div class="wifi-info-card sim" title="Dato simulado, no proviene del router real"><div class="lbl">Noise Floor</div><div class="val">-95 dBm</div></div>
+      <div class="wifi-info-card sim" title="Dato simulado, no proviene del router real"><div class="lbl">Interferencia</div><div class="val" style="color:var(--green)">Baja</div></div>
     </div>
   </div>
   <div class="tab-panel" id="wifi-bh">
     <div class="wifi-info-grid">
       <div class="wifi-info-card"><div class="lbl">SSID</div><div class="val">WIFI-BACKHAUL</div></div>
       <div class="wifi-info-card"><div class="lbl">Banda</div><div class="val">5 GHz</div></div>
-      <div class="wifi-info-card"><div class="lbl">Velocidad negociada</div><div class="val">866 Mbps</div></div>
-      <div class="wifi-info-card"><div class="lbl">RSSI</div><div class="val" style="color:var(--green)">-52 dBm</div></div>
-      <div class="wifi-info-card"><div class="lbl">SNR</div><div class="val">40 dB</div></div>
+      <div class="wifi-info-card sim" title="Dato simulado, no proviene del router real"><div class="lbl">Velocidad negociada</div><div class="val">866 Mbps</div></div>
+      <div class="wifi-info-card sim" title="Dato simulado, no proviene del router real"><div class="lbl">RSSI</div><div class="val" style="color:var(--green)">-52 dBm</div></div>
+      <div class="wifi-info-card sim" title="Dato simulado, no proviene del router real"><div class="lbl">SNR</div><div class="val">40 dB</div></div>
       <div class="wifi-info-card"><div class="lbl">Enlace hacia</div><div class="val">TENDA → ARRIS</div></div>
     </div>
   </div>
 
   <!-- ================= CLIENTS TABLE ================= -->
   <div class="section-title" id="clientes"><h2>Clientes conectados</h2><div class="line"></div></div>
-  <div class="table-toolbar">
+  <div class="sim-banner">⚠ Lista de dispositivos de ejemplo — no proviene de una consulta real al router.</div>
+  <div class="sim-block table-toolbar">
     <div class="search-box">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input type="text" placeholder="Buscar dispositivo, IP o MAC..." oninput="filterClients()" id="searchInput">
@@ -638,7 +647,7 @@ canvas.big-chart{width:100%;height:180px;display:block;}
     <div class="filter-chip" data-f="2.4ghz" onclick="setFilter(this)">2.4 GHz</div>
     <div class="filter-chip" data-f="5ghz" onclick="setFilter(this)">5 GHz</div>
   </div>
-  <div class="table-wrap">
+  <div class="sim-block table-wrap">
     <table class="data" id="clientsTable">
       <thead>
         <tr>
@@ -652,7 +661,8 @@ canvas.big-chart{width:100%;height:180px;display:block;}
 
   <!-- ================= REAL-TIME MONITORING ================= -->
   <div class="section-title"><h2>Monitoreo en tiempo real</h2><div class="line"></div></div>
-  <div class="chart-panel">
+  <div class="sim-banner">⚠ Gráficos con datos generados aleatoriamente de ejemplo — no proviene de una medición real.</div>
+  <div class="sim-block chart-panel">
     <div class="ch-head">
       <h3>Ancho de banda (Download / Upload)</h3>
       <div class="period-tabs">
@@ -665,7 +675,7 @@ canvas.big-chart{width:100%;height:180px;display:block;}
       <div class="lg"><span class="sw" style="background:#F0883E"></span>Upload</div>
     </div>
   </div>
-  <div class="charts-grid">
+  <div class="sim-block charts-grid">
     <div class="chart-panel">
       <div class="ch-head"><h3>Latencia &amp; Packet Loss</h3></div>
       <canvas class="big-chart" id="chartLatency"></canvas>
@@ -690,11 +700,13 @@ canvas.big-chart{width:100%;height:180px;display:block;}
 
   <!-- ================= ALERTS ================= -->
   <div class="section-title"><h2>Alertas &amp; eventos</h2><div class="line"></div></div>
-  <div id="alertsList"></div>
+  <div class="sim-banner">⚠ Alertas de ejemplo — no proviene de eventos reales del router.</div>
+  <div id="alertsList" class="sim-block"></div>
 
   <!-- ================= ADVANCED INFO ================= -->
   <div class="section-title"><h2>Información avanzada</h2><div class="line"></div></div>
-  <div id="advancedAccordion"></div>
+  <div class="sim-banner">⚠ Tablas de ejemplo (DHCP, ARP, rutas, logs) — no proviene de una consulta real al router.</div>
+  <div id="advancedAccordion" class="sim-block"></div>
 
   <p class="foot-note">Network Operations Center · Datos de referencia con fines de monitoreo local · No compartir credenciales de acceso.</p>
 </div>
