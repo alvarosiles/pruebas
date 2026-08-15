@@ -520,6 +520,21 @@ canvas.big-chart{width:100%;height:180px;display:block;}
           <tr><td class="k">Serial (real)</td><td class="v" id="realSerial">–</td></tr>
           <tr><td class="k">SW Revision (real)</td><td class="v" id="realSwRev">–</td></tr>
         </table>
+        <div style="margin-top:8px;">
+          <a href="#" onclick="document.getElementById('channelTableBox').style.display=document.getElementById('channelTableBox').style.display==='none'?'block':'none';return false;" style="color:var(--green);font-size:11px;font-weight:600;">Ver tabla de canales DOCSIS ▾</a>
+        </div>
+        <div id="channelTableBox" style="display:none;margin-top:8px;max-height:320px;overflow:auto;">
+          <div style="font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;margin:6px 0 4px;">Downstream</div>
+          <table class="kv-table" style="width:100%;font-size:11px;">
+            <thead><tr><td class="k">CH</td><td class="k">Freq</td><td class="k">Power</td><td class="k">SNR</td><td class="k">Mod.</td><td class="k">Corr.</td><td class="k">Uncorr.</td></tr></thead>
+            <tbody id="realDsTableBody"></tbody>
+          </table>
+          <div style="font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;margin:10px 0 4px;">Upstream</div>
+          <table class="kv-table" style="width:100%;font-size:11px;">
+            <thead><tr><td class="k">CH</td><td class="k">Freq</td><td class="k">Power</td><td class="k">Tipo</td><td class="k">Symbol Rate</td><td class="k">Mod.</td></tr></thead>
+            <tbody id="realUsTableBody"></tbody>
+          </table>
+        </div>
       </div>
       <div class="res-bars sim-block" title="Datos simulados, no provienen del router real">
         <div class="res-bar-item">
@@ -1058,6 +1073,22 @@ async function loadRealArrisData(){
 
     const box = document.getElementById('realDataBox');
     if(box) box.style.display = 'block';
+
+    const dsBody = document.getElementById('realDsTableBody');
+    if(dsBody){
+      dsBody.innerHTML = s.downstream.map(c=>{
+        const uncorr = parseInt(c.uncorrectable, 10) || 0;
+        const corr = parseInt(c.corrected, 10) || 0;
+        const warn = uncorr > 0 ? 'color:var(--red);font-weight:700;' : (corr > 100 ? 'color:var(--yellow);font-weight:600;' : '');
+        return `<tr><td class="v">${c.dcid}</td><td class="v">${c.freq}</td><td class="v">${c.power}</td><td class="v">${c.snr}</td><td class="v">${c.modulation}</td><td class="v">${c.corrected}</td><td class="v" style="${warn}">${c.uncorrectable}</td></tr>`;
+      }).join('');
+    }
+    const usBody = document.getElementById('realUsTableBody');
+    if(usBody){
+      usBody.innerHTML = s.upstream.map(c=>
+        `<tr><td class="v">${c.ucid}</td><td class="v">${c.freq}</td><td class="v">${c.power}</td><td class="v">${c.type}</td><td class="v">${c.symbol_rate}</td><td class="v">${c.modulation}</td></tr>`
+      ).join('');
+    }
   }catch(e){
     console.warn('No se pudo leer /api/arris-status (¿corriste python server.py?):', e.message);
   }
