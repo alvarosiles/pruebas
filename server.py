@@ -130,9 +130,11 @@ class Handler(SimpleHTTPRequestHandler):
             try:
                 status_html = fetch("status_cgi")
                 vers_html = fetch("vers_cgi")
+                status = parse_status(status_html)
+                status["downstream_mbps_now"] = compute_downstream_mbps(status["downstream"])
                 data = {
                     "ok": True,
-                    "status": parse_status(status_html),
+                    "status": status,
                     "versions": parse_vers(vers_html),
                 }
             except Exception as e:

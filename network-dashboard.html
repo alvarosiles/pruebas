@@ -514,6 +514,7 @@ canvas.big-chart{width:100%;height:180px;display:block;}
         <div style="font-size:10.5px;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">✓ Datos reales (DOCSIS, sin login) vía 192.168.100.1</div>
         <table class="kv-table">
           <tr><td class="k">CM Status</td><td class="v" id="realCmStatus">–</td></tr>
+          <tr><td class="k">Bajada ahora (real)</td><td class="v" id="realDsMbps">midiendo…</td></tr>
           <tr><td class="k">Downstream (prom.)</td><td class="v"><span id="realDsPower">–</span> · SNR <span id="realDsSnr">–</span></td></tr>
           <tr><td class="k">Upstream (prom.)</td><td class="v" id="realUsPower">–</td></tr>
           <tr><td class="k">Canales downstream</td><td class="v" id="realDsChannels">–</td></tr>
@@ -1056,6 +1057,8 @@ async function loadRealArrisData(){
     });
     const cmBadge = document.getElementById('realCmStatus');
     if(cmBadge) cmBadge.textContent = s.cm_status;
+    const dsMbps = document.getElementById('realDsMbps');
+    if(dsMbps) dsMbps.textContent = (s.downstream_mbps_now == null) ? 'midiendo…' : s.downstream_mbps_now + ' Mbps (bajada, ~30s)';
 
     const dsPower = document.getElementById('realDsPower');
     if(dsPower) dsPower.textContent = s.downstream_avg_power_dBmV+' dBmV';
