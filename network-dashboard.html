@@ -510,6 +510,17 @@ canvas.big-chart{width:100%;height:180px;display:block;}
           <tr class="sim" title="Dato simulado, no proviene del router real"><td class="k">Uptime</td><td class="v" data-real="arris-uptime">18d 6h 12m</td></tr>
         </table>
       </div>
+      <div id="realDataBox" style="display:none;padding:10px 18px;border-top:1px solid var(--border);background:var(--green-soft);">
+        <div style="font-size:10.5px;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">✓ Datos reales (DOCSIS, sin login) vía 192.168.100.1</div>
+        <table class="kv-table">
+          <tr><td class="k">CM Status</td><td class="v" id="realCmStatus">–</td></tr>
+          <tr><td class="k">Downstream (prom.)</td><td class="v"><span id="realDsPower">–</span> · SNR <span id="realDsSnr">–</span></td></tr>
+          <tr><td class="k">Upstream (prom.)</td><td class="v" id="realUsPower">–</td></tr>
+          <tr><td class="k">Canales downstream</td><td class="v" id="realDsChannels">–</td></tr>
+          <tr><td class="k">Serial (real)</td><td class="v" id="realSerial">–</td></tr>
+          <tr><td class="k">SW Revision (real)</td><td class="v" id="realSwRev">–</td></tr>
+        </table>
+      </div>
       <div class="res-bars sim-block" title="Datos simulados, no provienen del router real">
         <div class="res-bar-item">
           <div class="rb-head"><span>CPU</span><span>27%</span></div>
