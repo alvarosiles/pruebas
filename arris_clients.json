@@ -1,0 +1,75 @@
+{
+  "ok": true,
+  "clients": [
+    {
+      "ip": "192.168.60.20",
+      "hostname": "A17-de-cristhain",
+      "mac": "0A:82:B8:3C:C2:F9",
+      "connection": "Wireless24",
+      "lease_expires": "2026-08-15 18:33:32.00"
+    },
+    {
+      "ip": "192.168.60.21",
+      "hostname": "TL-WR941HP",
+      "mac": "C0:25:E9:97:90:10",
+      "connection": "Ethernet",
+      "lease_expires": "2026-08-15 18:29:20.00"
+    },
+    {
+      "ip": "192.168.60.23",
+      "hostname": "iPhone",
+      "mac": "06:F3:93:1C:A7:DC",
+      "connection": "Wireless50",
+      "lease_expires": "2026-08-15 18:25:52.00"
+    },
+    {
+      "ip": "192.168.60.24",
+      "hostname": "DESKTOP-1UISEC2",
+      "mac": "50:9A:4C:B6:E6:C1",
+      "connection": "Ethernet",
+      "lease_expires": "2026-08-15 18:47:07.00"
+    },
+    {
+      "ip": "192.168.60.25",
+      "hostname": "TL-WR941HP",
+      "mac": "18:D6:C7:C6:DA:73",
+      "connection": "Ethernet",
+      "lease_expires": "2026-08-15 18:51:44.00"
+    },
+    {
+      "ip": "192.168.60.26",
+      "hostname": "Tenda",
+      "mac": "08:40:F3:2D:06:69",
+      "connection": "Ethernet",
+      "lease_expires": "2026-08-15 18:55:52.00"
+    },
+    {
+      "ip": "192.168.60.27",
+      "hostname": "unknown",
+      "mac": "FE:F4:11:6A:BD:27",
+      "connection": "Ethernet",
+      "lease_expires": "2026-08-15 18:44:05.00"
+    },
+    {
+      "ip": "192.168.60.29",
+      "hostname": "iPhone",
+      "mac": "3A:93:CA:FB:6D:F0",
+      "connection": "Ethernet",
+      "lease_expires": "2026-08-15 18:47:17.00"
+    },
+    {
+      "ip": "192.168.60.30",
+      "hostname": "alvaro-OptiPlex-3020",
+      "mac": "F8:BC:12:85:0E:8C",
+      "connection": "Ethernet",
+      "lease_expires": "2026-08-15 18:58:05.00"
+    },
+    {
+      "ip": "192.168.60.32",
+      "hostname": "M2101K6G",
+      "mac": "56:78:6E:FD:DE:B7",
+      "connection": "Ethernet",
+      "lease_expires": "2026-08-15 18:53:24.00"
+    }
+  ]
+}

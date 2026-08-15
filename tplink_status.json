@@ -1,0 +1,19 @@
+{
+  "ok": true,
+  "status": {
+    "firmware": "3.16.9 Build 20170116 Rel.50912n",
+    "hardware": "TL-WR941HP v1 00000000",
+    "mac": "C0-25-E9-97-90-10",
+    "ip": "192.168.60.21",
+    "subnet_mask": "255.255.255.0",
+    "ssid": "Azul3",
+    "channel": "Automatico (Canal actual 9)",
+    "wifi_mode": "11b/g/n mixto",
+    "channel_width": "Automatico",
+    "rx_bytes": 3747680747,
+    "tx_bytes": 1773163823,
+    "rx_packets": 41415224,
+    "tx_packets": 109152798,
+    "uptime": "10 dias 05:57:41"
+  }
+}

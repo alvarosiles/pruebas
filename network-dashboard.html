@@ -425,6 +425,11 @@ canvas.big-chart{width:100%;height:180px;display:block;}
         <div class="n-label">TENDA</div><div class="n-sub">192.168.3.1</div>
       </div>
       <div class="topo-link"></div>
+      <div class="topo-node" onclick="showDetail('tplink')">
+        <div class="n-icon router"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><line x1="6" y1="21" x2="6" y2="17"/><line x1="18" y1="21" x2="18" y2="17"/><circle cx="7" cy="12" r="1"/><circle cx="11" cy="12" r="1"/></svg><span class="n-status"></span></div>
+        <div class="n-label">TP-Link TL-WR941HP</div><div class="n-sub">192.168.60.21</div>
+      </div>
+      <div class="topo-link"></div>
       <div class="topo-node" onclick="showDetail('clients')">
         <div class="n-icon clients"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="n-status"></span></div>
         <div class="n-label">Clientes</div><div class="n-sub">14 conectados</div>
@@ -474,6 +479,25 @@ canvas.big-chart{width:100%;height:180px;display:block;}
         <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">Link Speed (uplink)</span><span class="v">1 Gbps Full-Duplex</span></div>
         <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">Clientes</span><span class="v">6</span></div>
         <div class="dt"><span class="k">Estado</span><span class="v"><span class="badge-status online">● Online</span></span></div>
+      </div>
+    </div>
+
+    <div class="detail-panel" id="detail-tplink">
+      <div class="detail-grid">
+        <div class="dt"><span class="k">Fabricante</span><span class="v">TP-Link</span></div>
+        <div class="dt"><span class="k">Modelo</span><span class="v">TL-WR941HP v1</span></div>
+        <div class="dt"><span class="k">Tipo</span><span class="v">Punto de acceso (cascada, cable Ethernet)</span></div>
+        <div class="dt"><span class="k">IP LAN</span><span class="v">192.168.60.21</span></div>
+        <div class="dt"><span class="k">Dirección MAC</span><span class="v">C0-25-E9-97-90-10</span></div>
+        <div class="dt"><span class="k">Firmware</span><span class="v">3.16.9 Build 20170116 Rel.50912n</span></div>
+        <div class="dt"><span class="k">SSID</span><span class="v">Azul3</span></div>
+        <div class="dt"><span class="k">Canal WiFi</span><span class="v" id="tpChannel">Automático (actual: 9)</span></div>
+        <div class="dt"><span class="k">Modo WiFi</span><span class="v" id="tpMode">11b/g/n mixto</span></div>
+        <div class="dt"><span class="k">Uptime</span><span class="v" id="tpUptime">10d 05h 46m</span></div>
+        <div class="dt"><span class="k">Tráfico recibido</span><span class="v" id="tpRx">3,747,494,991 B / 41,414,653 pkts</span></div>
+        <div class="dt"><span class="k">Tráfico enviado</span><span class="v" id="tpTx">1,771,985,755 B / 109,146,057 pkts</span></div>
+        <div class="dt"><span class="k">Estado</span><span class="v"><span class="badge-status online">● Online</span></span></div>
+        <div class="dt" style="grid-column:1/-1;font-size:10.5px;color:var(--muted)" id="tpFetchedAt"></div>
       </div>
     </div>
 
@@ -686,6 +710,20 @@ canvas.big-chart{width:100%;height:180px;display:block;}
     </table>
   </div>
 
+  <!-- ================= ACCESS CREDENTIALS ================= -->
+  <div class="section-title"><h2>Accesos a paneles admin</h2><div class="line"></div></div>
+  <div class="sim-banner">⚠ Uso local únicamente — este panel expone contraseñas en texto plano, no lo publiques ni lo sirvas fuera de tu red local.</div>
+  <div class="table-wrap">
+    <table class="data">
+      <thead><tr><th>Dispositivo</th><th>Tipo</th><th>URL</th><th>Usuario</th><th>Contraseña</th></tr></thead>
+      <tbody>
+        <tr><td>ARRIS TG2482</td><td>Gateway (Módem-Router)</td><td>http://192.168.60.1/</td><td>admin</td><td>alvaro</td></tr>
+        <tr><td>TENDA (cascada)</td><td>Router</td><td>http://192.168.3.1/</td><td colspan="2" style="color:var(--muted)">no guardado en el repo — ingrésalo manualmente</td></tr>
+        <tr><td>TP-Link TL-WR941HP</td><td>Access Point</td><td>http://192.168.60.21/</td><td>admin</td><td>alvaro</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- ================= REAL-TIME MONITORING ================= -->
   <div class="section-title"><h2>Monitoreo en tiempo real</h2><div class="line"></div></div>
   <div class="sim-banner">⚠ Gráficos con datos generados aleatoriamente de ejemplo — no proviene de una medición real.</div>
@@ -789,7 +827,7 @@ refreshNow();
 /* ---------- Clients data ---------- */
 const vendors=['Apple','Samsung','Xiaomi','TP-Link','Intel','Huawei','Google','Dell'];
 const types=['Phone','Laptop','TV','IoT','Tablet','Console','Desktop'];
-const clients=[
+let clients=[
   {name:'iPhone-Alvaro',type:'Phone',ip:'192.168.3.101',mac:'A4:5E:60:1B:2C:3D',vendor:'Apple',conn:'Wi-Fi',band:'5GHz',rssi:-48,rx:'1.2 GB',tx:'320 MB',uptime:'4h 12m',status:'online'},
   {name:'MacBook-Pro',type:'Laptop',ip:'192.168.3.102',mac:'B8:27:EB:2C:4D:5E',vendor:'Apple',conn:'Wi-Fi',band:'5GHz',rssi:-52,rx:'3.8 GB',tx:'900 MB',uptime:'9h 40m',status:'online'},
   {name:'Smart-TV-Sala',type:'TV',ip:'192.168.3.103',mac:'C4:73:1E:3D:5E:6F',vendor:'Samsung',conn:'Wi-Fi',band:'5GHz',rssi:-58,rx:'12.4 GB',tx:'80 MB',uptime:'2d 3h',status:'online'},
@@ -806,7 +844,8 @@ const clients=[
   {name:'NAS-Backup',type:'Desktop',ip:'192.168.60.23',mac:'88:D7:F6:E8:09:1A',vendor:'Intel',conn:'Ethernet',band:'-',rssi:null,rx:'120 GB',tx:'80 GB',uptime:'18d 6h',status:'online'},
 ];
 
-function signalIcon(rssi){
+function signalIcon(rssi, isWired){
+  if(rssi===null && !isWired) return '<span style="color:var(--muted)">– dBm</span>';
   if(rssi===null) return '<span class="signal-bars"><span style="background:var(--green)"></span><span style="background:var(--green)"></span><span style="background:var(--green)"></span><span style="background:var(--green)"></span></span> Wired';
   let n = rssi>-55?4:rssi>-65?3:rssi>-75?2:1;
   let color = n>=3?'var(--green)':n===2?'var(--yellow)':'var(--red)';
@@ -828,7 +867,7 @@ function renderClients(list){
       <td>${c.vendor}</td>
       <td>${c.conn}</td>
       <td>${c.band}</td>
-      <td>${signalIcon(c.rssi)}</td>
+      <td>${signalIcon(c.rssi, c.conn==='Ethernet')}</td>
       <td>${c.rx}</td>
       <td>${c.tx}</td>
       <td>${addGB(c.rx,c.tx)}</td>
@@ -840,6 +879,7 @@ function renderClients(list){
 }
 function addGB(rx,tx){
   const num=s=>parseFloat(s);
+  if(isNaN(num(rx))||isNaN(num(tx))) return '–';
   return (num(rx)+num(tx)).toFixed(1)+' '+(rx.includes('GB')||tx.includes('GB')?'GB':'MB');
 }
 function iconFor(type){
@@ -1098,6 +1138,56 @@ async function loadRealArrisData(){
 }
 loadRealArrisData();
 setInterval(loadRealArrisData, 30000);
+
+/* ---------- Clientes reales (arris_admin_scrape.py -> arris_clients.json) ---------- */
+function typeFromConn(conn){
+  return conn==='Ethernet' ? 'Desktop' : 'Phone';
+}
+async function loadRealClients(){
+  try{
+    const r = await fetch('/api/arris-clients');
+    const d = await r.json();
+    if(!d.ok || !Array.isArray(d.clients) || !d.clients.length) throw new Error(d.error||'sin clientes');
+    clients = d.clients
+      .filter(c=>c.ip.includes('.'))
+      .map(c=>({
+        name: c.hostname && c.hostname!=='unknown' ? c.hostname : c.mac,
+        type: typeFromConn(c.connection),
+        ip: c.ip,
+        mac: c.mac,
+        vendor: '–',
+        conn: c.connection==='Ethernet' ? 'Ethernet' : 'Wi-Fi',
+        band: c.connection==='Wireless24' ? '2.4GHz' : c.connection==='Wireless50' ? '5GHz' : '-',
+        rssi: null,
+        rx: '–', tx: '–', uptime: '–',
+        status: 'online',
+      }));
+    filterClients();
+  }catch(e){
+    console.warn('No se pudo leer /api/arris-clients (¿corriste arris_admin_scrape.py?):', e.message);
+  }
+}
+loadRealClients();
+
+/* ---------- TP-Link real (tplink_status_scrape.py -> tplink_status.json) ---------- */
+function fmtNum(n){ return n==null ? '–' : n.toLocaleString('es-BO'); }
+async function loadTplinkStatus(){
+  try{
+    const r = await fetch('/api/tplink-status');
+    const d = await r.json();
+    if(!d.ok) throw new Error(d.error||'sin datos');
+    const s = d.status;
+    document.getElementById('tpChannel').textContent = s.channel;
+    document.getElementById('tpMode').textContent = s.wifi_mode;
+    document.getElementById('tpUptime').textContent = s.uptime;
+    document.getElementById('tpRx').textContent = `${fmtNum(s.rx_bytes)} B / ${fmtNum(s.rx_packets)} pkts`;
+    document.getElementById('tpTx').textContent = `${fmtNum(s.tx_bytes)} B / ${fmtNum(s.tx_packets)} pkts`;
+    document.getElementById('tpFetchedAt').textContent = 'Última lectura real: ' + new Date().toLocaleTimeString('es-BO') + ' (ejecuta tplink_status_scrape.py para refrescar)';
+  }catch(e){
+    console.warn('No se pudo leer /api/tplink-status (¿corriste tplink_status_scrape.py?):', e.message);
+  }
+}
+loadTplinkStatus();
 </script>
 </body>
 </html>

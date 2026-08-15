@@ -11,6 +11,7 @@ Uso:
 """
 
 import json
+import os
 import re
 import time
 import urllib.request
@@ -124,8 +125,32 @@ def compute_downstream_mbps(downstream):
     return mbps
 
 
+CLIENTS_FILE = "arris_clients.json"
+TPLINK_FILE = "tplink_status.json"
+
+
+def serve_json_file(handler, path, missing_hint):
+    if os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as f:
+            body = f.read().encode("utf-8")
+    else:
+        body = json.dumps({"ok": False, "error": missing_hint}).encode("utf-8")
+    handler.send_response(200)
+    handler.send_header("Content-Type", "application/json")
+    handler.send_header("Content-Length", str(len(body)))
+    handler.send_header("Access-Control-Allow-Origin", "*")
+    handler.end_headers()
+    handler.wfile.write(body)
+
+
 class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
+        if self.path == "/api/arris-clients":
+            serve_json_file(self, CLIENTS_FILE, "arris_clients.json no existe. Ejecuta: python arris_admin_scrape.py")
+            return
+        if self.path == "/api/tplink-status":
+            serve_json_file(self, TPLINK_FILE, "tplink_status.json no existe. Ejecuta: python tplink_status_scrape.py")
+            return
         if self.path == "/api/arris-status":
             try:
                 status_html = fetch("status_cgi")
