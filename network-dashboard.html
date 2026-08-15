@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Network Operations Center</title>
+<style>
+:root{
+  --bg:#0B1118;
+  --panel:#151C25;
+  --panel-2:#111820;
+  --border:#232C38;
+  --border-soft:#1A222C;
+  --text:#E7ECF3;
+  --muted:#8593A6;
+  --muted-2:#5E6B7D;
+  --blue:#4C8DFF;
+  --blue-soft:rgba(76,141,255,.12);
+  --orange:#F0883E;
+  --orange-soft:rgba(240,136,62,.12);
+  --green:#3FD17A;
+  --green-soft:rgba(63,209,122,.12);
+  --red:#F85149;
+  --red-soft:rgba(248,81,73,.12);
+  --yellow:#E3B341;
+  --yellow-soft:rgba(227,179,65,.12);
+  --purple:#A371F7;
+  --radius:12px;
+  --radius-sm:8px;
+  --shadow:0 4px 20px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:14px;
+  -webkit-font-smoothing:antialiased;
+}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px;}
+::-webkit-scrollbar-track{background:transparent;}
+
+a{color:inherit;}
+.wrap{max-width:1440px;margin:0 auto;padding:20px 24px 60px;}
+
+/* ---------- Header ---------- */
+header.top{
+  display:flex;align-items:center;gap:20px;
+  background:linear-gradient(180deg,#131B24,#101720);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px 22px;margin-bottom:20px;box-shadow:var(--shadow);
+  flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:12px;min-width:220px;}
+.brand .logo{
+  width:40px;height:40px;border-radius:10px;
+  background:linear-gradient(135deg,var(--blue),#2B5FD9);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#fff;
+  box-shadow:0 0 0 1px rgba(255,255,255,.06) inset;
+}
+.brand h1{font-size:16px;margin:0;letter-spacing:.2px;}
+.brand .status-line{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--green);font-weight:600;margin-top:2px;}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+.dot.pulse{animation:pulse 1.8s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(63,209,122,.5);}70%{box-shadow:0 0 0 6px rgba(63,209,122,0);}100%{box-shadow:0 0 0 0 rgba(63,209,122,0);}}
+
+.top-stats{display:flex;gap:22px;margin-left:auto;flex-wrap:wrap;}
+.top-stat{text-align:right;}
+.top-stat .lbl{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
+.top-stat .val{font-size:15px;font-weight:700;margin-top:2px;}
+.top-stat .val.blue{color:var(--blue);}
+.top-stat .val.green{color:var(--green);}
+
+.top-actions{display:flex;gap:8px;align-items:center;}
+.icon-btn{
+  width:36px;height:36px;border-radius:9px;border:1px solid var(--border);
+  background:var(--panel-2);color:var(--muted);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:.15s;
+}
+.icon-btn:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-soft);}
+.icon-btn svg{width:16px;height:16px;}
+.icon-btn.spin svg{transition:transform .5s;}
+.icon-btn.spin:active svg{transform:rotate(180deg);}
+
+/* ---------- Section titles ---------- */
+.section-title{
+  display:flex;align-items:center;gap:10px;margin:28px 0 14px;
+}
+.section-title h2{font-size:14px;margin:0;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+.section-title .line{flex:1;height:1px;background:var(--border);}
+.collapse-btn{background:none;border:none;color:var(--muted-2);cursor:pointer;font-size:12px;}
+
+/* ---------- Summary grid ---------- */
+.summary-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;
+}
+.metric-card{
+  background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
+  padding:14px 16px;position:relative;overflow:hidden;
+}
+.metric-card .m-icon{
+  width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;
+}
+.metric-card .m-icon svg{width:15px;height:15px;}
+.metric-card .m-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+.metric-card .m-val{font-size:20px;font-weight:700;margin-top:4px;}
+.metric-card .m-sub{font-size:11px;color:var(--muted-2);margin-top:3px;}
+.trend{display:inline-flex;align-items:center;gap:2px;font-size:11px;font-weight:600;margin-left:6px;}
+.trend.up{color:var(--green);}
+.trend.down{color:var(--red);}
+.icon-blue{background:var(--blue-soft);color:var(--blue);}
+.icon-green{background:var(--green-soft);color:var(--green);}
+.icon-orange{background:var(--orange-soft);color:var(--orange);}
+.icon-yellow{background:var(--yellow-soft);color:var(--yellow);}
+.icon-purple{background:rgba(163,113,247,.12);color:var(--purple);}
+
+/* ---------- Topology ---------- */
+.topo-wrap{
+  background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:28px 20px;
+  overflow-x:auto;
+}
+.topo-row{display:flex;align-items:center;justify-content:center;gap:0;min-width:760px;}
+.topo-node{
+  display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;padding:10px;border-radius:10px;transition:.15s;
+}
+.topo-node:hover{background:rgba(255,255,255,.03);}
+.topo-node .n-icon{
+  width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--border);position:relative;
+}
+.topo-node .n-icon svg{width:24px;height:24px;}
+.topo-node .n-icon.internet{background:var(--purple-soft,rgba(163,113,247,.12));color:var(--purple);border-color:rgba(163,113,247,.3);}
+.topo-node .n-icon.gateway{background:var(--blue-soft);color:var(--blue);border-color:rgba(76,141,255,.3);}
+.topo-node .n-icon.router{background:var(--orange-soft);color:var(--orange);border-color:rgba(240,136,62,.3);}
+.topo-node .n-icon.clients{background:var(--green-soft);color:var(--green);border-color:rgba(63,209,122,.3);}
+.topo-node .n-status{position:absolute;bottom:-2px;right:-2px;width:12px;height:12px;border-radius:50%;background:var(--green);border:2px solid var(--panel);}
+.topo-node .n-label{font-size:12px;font-weight:700;}
+.topo-node .n-sub{font-size:10.5px;color:var(--muted);}
+.topo-link{
+  flex:0 0 60px;height:2px;background:linear-gradient(90deg,var(--border),var(--blue),var(--border));
+  position:relative;margin:0 4px;align-self:center;margin-top:-30px;
+}
+.topo-link::after{
+  content:'';position:absolute;top:-3px;right:0;width:0;height:0;
+  border-left:6px solid var(--blue);border-top:4px solid transparent;border-bottom:4px solid transparent;
+}
+.topo-mesh{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:-30px;}
+
+/* ---------- Device detail panel ---------- */
+.detail-panel{
+  display:none;margin-top:16px;background:var(--panel-2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;
+}
+.detail-panel.show{display:block;}
+.detail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0 24px;}
+.detail-grid .dt{padding:8px 0;border-bottom:1px solid var(--border-soft);display:flex;justify-content:space-between;gap:10px;font-size:12.5px;}
+.detail-grid .dt .k{color:var(--muted);}
+.detail-grid .dt .v{font-weight:600;text-align:right;}
+
+/* ---------- Device cards (Arris / Tenda) ---------- */
+.device-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(430px,1fr));gap:18px;}
+.dev-card{
+  background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+}
+.dev-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--border);}
+.dev-badge{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0;}
+.dev-badge.arris{background:linear-gradient(135deg,var(--blue),#2B5FD9);}
+.dev-badge.tenda{background:linear-gradient(135deg,var(--orange),#C6660B);}
+.dev-head h3{margin:0;font-size:15px;}
+.dev-head .sub{margin:2px 0 0;font-size:11.5px;color:var(--muted);}
+.dev-status{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--green);font-weight:700;}
+.dev-menu-btn{background:none;border:1px solid var(--border);border-radius:7px;width:28px;height:28px;color:var(--muted);cursor:pointer;margin-left:8px;}
+
+.dev-body{padding:6px 18px 16px;}
+.kv-table{width:100%;border-collapse:collapse;}
+.kv-table td{padding:6px 0;font-size:12.5px;border-bottom:1px solid var(--border-soft);}
+.kv-table td.k{color:var(--muted);width:52%;}
+.kv-table td.v{font-weight:600;text-align:right;}
+.badge-status{display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:700;}
+.badge-status.online{background:var(--green-soft);color:var(--green);}
+.badge-status.warn{background:var(--yellow-soft);color:var(--yellow);}
+.badge-status.off{background:var(--red-soft);color:var(--red);}
+
+.mini-charts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:12px 18px;border-top:1px solid var(--border);}
+.mini-chart-box{background:var(--panel-2);border:1px solid var(--border-soft);border-radius:9px;padding:10px 12px;}
+.mini-chart-box .mc-head{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px;}
+.mini-chart-box .mc-head b{color:var(--text);font-size:12.5px;}
+canvas.spark{width:100%;height:34px;display:block;}
+
+.res-bars{padding:4px 18px 14px;display:flex;gap:14px;}
+.res-bar-item{flex:1;}
+.res-bar-item .rb-head{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px;}
+.res-bar-track{height:6px;border-radius:4px;background:var(--border-soft);overflow:hidden;}
+.res-bar-fill{height:100%;border-radius:4px;}
+
+.dev-actions{display:flex;gap:8px;padding:14px 18px;border-top:1px solid var(--border);flex-wrap:wrap;}
+.btn{
+  padding:9px 14px;border-radius:8px;border:1px solid var(--border);background:var(--panel-2);
+  color:var(--text);font-size:12px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:.15s;
+}
+.btn:hover{border-color:var(--blue);color:var(--blue);}
+.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff;}
+.btn.primary:hover{filter:brightness(1.1);color:#fff;}
+.btn.danger:hover{border-color:var(--red);color:var(--red);}
+.btn svg{width:13px;height:13px;}
+
+/* ---------- Tabs (Wi-Fi) ---------- */
+.tabs{display:flex;gap:6px;margin-bottom:14px;background:var(--panel-2);padding:4px;border-radius:9px;width:fit-content;border:1px solid var(--border);}
+.tab{padding:8px 16px;border-radius:7px;font-size:12.5px;font-weight:600;color:var(--muted);cursor:pointer;}
+.tab.active{background:var(--blue);color:#fff;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+.wifi-info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:18px;}
+.wifi-info-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;}
+.wifi-info-card .lbl{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+.wifi-info-card .val{font-size:15px;font-weight:700;margin-top:4px;}
+
+/* ---------- Table ---------- */
+.table-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;}
+.search-box{
+  flex:1;min-width:200px;display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--border);
+  border-radius:9px;padding:9px 12px;
+}
+.search-box input{background:none;border:none;outline:none;color:var(--text);font-size:13px;flex:1;}
+.search-box svg{width:14px;height:14px;color:var(--muted);}
+.filter-chip{
+  padding:8px 13px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border);
+  background:var(--panel);color:var(--muted);cursor:pointer;white-space:nowrap;
+}
+.filter-chip.active{background:var(--blue-soft);border-color:var(--blue);color:var(--blue);}
+
+.table-wrap{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);overflow:auto;}
+table.data{width:100%;border-collapse:collapse;min-width:920px;}
+table.data th{
+  text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+  padding:12px 14px;border-bottom:1px solid var(--border);background:var(--panel-2);white-space:nowrap;position:sticky;top:0;
+}
+table.data td{padding:11px 14px;font-size:12.5px;border-bottom:1px solid var(--border-soft);white-space:nowrap;}
+table.data tr:hover td{background:rgba(255,255,255,.02);}
+.client-name{display:flex;align-items:center;gap:9px;}
+.client-ic{width:26px;height:26px;border-radius:7px;background:var(--panel-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);}
+.client-ic svg{width:13px;height:13px;}
+.signal-bars{display:inline-flex;align-items:end;gap:2px;height:12px;}
+.signal-bars span{width:3px;background:var(--border);border-radius:1px;}
+.signal-bars span:nth-child(1){height:4px;}
+.signal-bars span:nth-child(2){height:7px;}
+.signal-bars span:nth-child(3){height:10px;}
+.signal-bars span:nth-child(4){height:13px;}
+
+/* ---------- Charts section ---------- */
+.chart-panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;}
+.chart-panel .ch-head{display:flex;align-items:center;justify-content:between;margin-bottom:12px;gap:10px;flex-wrap:wrap;}
+.chart-panel h3{font-size:13px;margin:0;font-weight:700;}
+.period-tabs{display:flex;gap:4px;margin-left:auto;background:var(--panel-2);padding:3px;border-radius:7px;border:1px solid var(--border);}
+.period-tabs span{padding:5px 10px;font-size:11px;border-radius:5px;color:var(--muted);cursor:pointer;font-weight:600;}
+.period-tabs span.active{background:var(--blue);color:#fff;}
+canvas.big-chart{width:100%;height:180px;display:block;}
+.legend-row{display:flex;gap:16px;margin-top:10px;font-size:11.5px;color:var(--muted);}
+.legend-row .lg{display:flex;align-items:center;gap:6px;}
+.legend-row .sw{width:10px;height:10px;border-radius:3px;}
+
+.charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;}
+
+/* ---------- Alerts ---------- */
+.alert-item{
+  display:flex;gap:12px;align-items:flex-start;padding:13px 16px;border-radius:var(--radius-sm);
+  background:var(--panel);border:1px solid var(--border);margin-bottom:8px;
+}
+.alert-icon{width:32px;height:32px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.alert-icon svg{width:15px;height:15px;}
+.alert-body{flex:1;}
+.alert-title{font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.sev-tag{font-size:9.5px;padding:2px 7px;border-radius:5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;}
+.sev-tag.critical{background:var(--red-soft);color:var(--red);}
+.sev-tag.warning{background:var(--yellow-soft);color:var(--yellow);}
+.sev-tag.info{background:var(--blue-soft);color:var(--blue);}
+.alert-meta{font-size:11.5px;color:var(--muted);margin-top:3px;}
+.alert-resolve{background:none;border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:11px;color:var(--muted);cursor:pointer;white-space:nowrap;}
+.alert-resolve:hover{border-color:var(--green);color:var(--green);}
+
+/* ---------- Advanced info accordion ---------- */
+.acc-item{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden;}
+.acc-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;cursor:pointer;user-select:none;}
+.acc-head span.t{font-size:12.5px;font-weight:700;}
+.acc-head .chev{transition:transform .2s;color:var(--muted);}
+.acc-item.open .chev{transform:rotate(180deg);}
+.acc-body{display:none;padding:0 16px 14px;font-size:12px;color:var(--muted);}
+.acc-item.open .acc-body{display:block;}
+.acc-body table{width:100%;border-collapse:collapse;}
+.acc-body td{padding:5px 0;border-bottom:1px solid var(--border-soft);}
+.acc-body td.v{text-align:right;color:var(--text);font-weight:600;}
+
+/* ---------- Modal ---------- */
+.modal-bg{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;
+  align-items:center;justify-content:center;
+}
+.modal-bg.show{display:flex;}
+.modal{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);width:360px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.modal h3{margin:0 0 8px;font-size:15px;}
+.modal p{margin:0 0 18px;font-size:13px;color:var(--muted);line-height:1.5;}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;}
+
+/* ---------- Footer note ---------- */
+.foot-note{text-align:center;color:var(--muted-2);font-size:11.5px;margin-top:30px;}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .device-cards{grid-template-columns:1fr;}
+  .top-stats{width:100%;justify-content:space-between;margin-left:0;}
+  .topo-row{flex-direction:column;min-width:0;}
+  .topo-link{width:2px;height:34px;flex:none;margin:0;align-self:center;transform:rotate(90deg) translateY(0);}
+  table.data{min-width:700px;}
+}
+@media (max-width:560px){
+  .wrap{padding:14px;}
+  .summary-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= HEADER ================= -->
+  <header class="top">
+    <div class="brand">
+      <div class="logo">A1</div>
+      <div>
+        <h1>Azul1 — Red Doméstica</h1>
+        <div class="status-line"><span class="dot pulse"></span>Online / Healthy</div>
+      </div>
+    </div>
+    <div class="top-stats">
+      <div class="top-stat"><div class="lbl">Uptime</div><div class="val">18d 6h</div></div>
+      <div class="top-stat"><div class="lbl">Latencia</div><div class="val green">14 ms</div></div>
+      <div class="top-stat"><div class="lbl">Descarga</div><div class="val blue">182 Mbps</div></div>
+      <div class="top-stat"><div class="lbl">Subida</div><div class="val blue">38 Mbps</div></div>
+      <div class="top-stat"><div class="lbl">Actualizado</div><div class="val" id="lastUpdate">hace 4 s</div></div>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn spin" title="Actualizar" onclick="refreshNow()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      </button>
+      <button class="icon-btn" title="Configuración">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= NETWORK SUMMARY ================= -->
+  <div class="section-title"><h2>Resumen de red</h2><div class="line"></div></div>
+  <div class="summary-grid">
+    <div class="metric-card">
+      <div class="m-icon icon-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+      <div class="m-lbl">Internet</div><div class="m-val" style="color:var(--green)">Online</div><div class="m-sub">Tigo Bolivia · CGNAT</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-icon icon-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="19 12 12 19 5 12"/><line x1="12" y1="19" x2="12" y2="5"/></svg></div>
+      <div class="m-lbl">Download</div><div class="m-val">182 Mbps<span class="trend up">▲2%</span></div><div class="m-sub">Prom. 24h: 165 Mbps</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-icon icon-orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5 12 12 5 19 12"/><line x1="12" y1="5" x2="12" y2="19"/></svg></div>
+      <div class="m-lbl">Upload</div><div class="m-val">38 Mbps<span class="trend down">▼1%</span></div><div class="m-sub">Prom. 24h: 39 Mbps</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-icon icon-yellow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="m-lbl">Latency</div><div class="m-val">14 ms</div><div class="m-sub">Jitter: 2.1 ms</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-icon icon-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <div class="m-lbl">Connected Devices</div><div class="m-val">14</div><div class="m-sub">8 Arris · 6 Tenda</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-icon icon-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/></svg></div>
+      <div class="m-lbl">Wi-Fi Clients</div><div class="m-val">10</div><div class="m-sub">2.4GHz: 4 · 5GHz: 6</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-icon icon-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><line x1="6" y1="21" x2="6" y2="17"/><line x1="18" y1="21" x2="18" y2="17"/></svg></div>
+      <div class="m-lbl">Ethernet Clients</div><div class="m-val">4</div><div class="m-sub">Todos estables</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-icon icon-yellow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="m-lbl">Network Uptime</div><div class="m-val">18 días</div><div class="m-sub">Sin caídas recientes</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-icon icon-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="m-lbl">WAN IP</div><div class="m-val" style="font-size:14px">10.122.145.65</div><div class="m-sub">CGNAT</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-icon icon-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M6 12h.01"/></svg></div>
+      <div class="m-lbl">Public IP</div><div class="m-val" style="font-size:14px">190.104.xx.xx</div><div class="m-sub">La Paz, BO</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-icon icon-orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div>
+      <div class="m-lbl">DNS</div><div class="m-val" style="font-size:13px">200.73.96.167</div><div class="m-sub">190.104.12.43</div>
+    </div>
+  </div>
+
+  <!-- ================= TOPOLOGY ================= -->
+  <div class="section-title"><h2>Topología de red</h2><div class="line"></div></div>
+  <div class="topo-wrap">
+    <div class="topo-row">
+      <div class="topo-node" onclick="showDetail('internet')">
+        <div class="n-icon internet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span class="n-status"></span></div>
+        <div class="n-label">Internet</div><div class="n-sub">Tigo Bolivia</div>
+      </div>
+      <div class="topo-link"></div>
+      <div class="topo-node" onclick="showDetail('arris')">
+        <div class="n-icon gateway"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><line x1="6" y1="21" x2="6" y2="17"/><line x1="18" y1="21" x2="18" y2="17"/><circle cx="7" cy="12" r="1"/><circle cx="11" cy="12" r="1"/></svg><span class="n-status"></span></div>
+        <div class="n-label">ARRIS TG2482</div><div class="n-sub">192.168.60.1</div>
+      </div>
+      <div class="topo-link"></div>
+      <div class="topo-node" onclick="showDetail('tenda')">
+        <div class="n-icon router"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="2"/><line x1="6" y1="21" x2="6" y2="17"/><line x1="18" y1="21" x2="18" y2="17"/><circle cx="7" cy="12" r="1"/><circle cx="11" cy="12" r="1"/></svg><span class="n-status"></span></div>
+        <div class="n-label">TENDA</div><div class="n-sub">192.168.3.1</div>
+      </div>
+      <div class="topo-link"></div>
+      <div class="topo-node" onclick="showDetail('clients')">
+        <div class="n-icon clients"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="n-status"></span></div>
+        <div class="n-label">Clientes</div><div class="n-sub">14 conectados</div>
+      </div>
+    </div>
+
+    <div class="detail-panel" id="detail-internet">
+      <div class="detail-grid">
+        <div class="dt"><span class="k">ISP</span><span class="v">Tigo Bolivia (tigo.net.bo)</span></div>
+        <div class="dt"><span class="k">Tipo de conexión</span><span class="v">DOCSIS / Cable</span></div>
+        <div class="dt"><span class="k">IP WAN</span><span class="v">10.122.145.65 (CGNAT)</span></div>
+        <div class="dt"><span class="k">Estado</span><span class="v"><span class="badge-status online">● Online</span></span></div>
+      </div>
+    </div>
+
+    <div class="detail-panel" id="detail-arris">
+      <div class="detail-grid">
+        <div class="dt"><span class="k">Fabricante</span><span class="v">ARRIS Group, Inc.</span></div>
+        <div class="dt"><span class="k">Modelo</span><span class="v">TG2482</span></div>
+        <div class="dt"><span class="k">Tipo</span><span class="v">Gateway (Módem-Router)</span></div>
+        <div class="dt"><span class="k">IP LAN</span><span class="v">192.168.60.1</span></div>
+        <div class="dt"><span class="k">IP WAN</span><span class="v">10.122.145.65</span></div>
+        <div class="dt"><span class="k">MAC Address</span><span class="v">2C:00:AB:6E:5C:24</span></div>
+        <div class="dt"><span class="k">Firmware</span><span class="v">9.1.103GE4AL.SIP</span></div>
+        <div class="dt"><span class="k">Hardware Rev.</span><span class="v">8.0</span></div>
+        <div class="dt"><span class="k">Uptime</span><span class="v">18d 6h 12m</span></div>
+        <div class="dt"><span class="k">CPU</span><span class="v">27%</span></div>
+        <div class="dt"><span class="k">RAM</span><span class="v">54%</span></div>
+        <div class="dt"><span class="k">Temperatura</span><span class="v">48°C</span></div>
+        <div class="dt"><span class="k">Clientes</span><span class="v">8</span></div>
+        <div class="dt"><span class="k">Estado</span><span class="v"><span class="badge-status online">● Online</span></span></div>
+      </div>
+    </div>
+
+    <div class="detail-panel" id="detail-tenda">
+      <div class="detail-grid">
+        <div class="dt"><span class="k">Fabricante</span><span class="v">Tenda</span></div>
+        <div class="dt"><span class="k">Tipo</span><span class="v">Router (cascada)</span></div>
+        <div class="dt"><span class="k">IP LAN</span><span class="v">192.168.3.1</span></div>
+        <div class="dt"><span class="k">IP WAN (uplink)</span><span class="v">192.168.60.26</span></div>
+        <div class="dt"><span class="k">Gateway upstream</span><span class="v">192.168.60.1</span></div>
+        <div class="dt"><span class="k">Firmware</span><span class="v">V5.110.27.21</span></div>
+        <div class="dt"><span class="k">Número de serie</span><span class="v">E7973010046003844</span></div>
+        <div class="dt"><span class="k">Uptime</span><span class="v">6d 2h</span></div>
+        <div class="dt"><span class="k">CPU</span><span class="v">19%</span></div>
+        <div class="dt"><span class="k">RAM</span><span class="v">41%</span></div>
+        <div class="dt"><span class="k">Link Speed (uplink)</span><span class="v">1 Gbps Full-Duplex</span></div>
+        <div class="dt"><span class="k">Clientes</span><span class="v">6</span></div>
+        <div class="dt"><span class="k">Estado</span><span class="v"><span class="badge-status online">● Online</span></span></div>
+      </div>
+    </div>
+
+    <div class="detail-panel" id="detail-clients">
+      <div class="detail-grid">
+        <div class="dt"><span class="k">Total conectados</span><span class="v">14</span></div>
+        <div class="dt"><span class="k">Wi-Fi</span><span class="v">10</span></div>
+        <div class="dt"><span class="k">Ethernet</span><span class="v">4</span></div>
+        <div class="dt"><span class="k">Ver detalle</span><span class="v"><a href="#clientes" style="color:var(--blue)">Ir a tabla de clientes ↓</a></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= DEVICE PANELS ================= -->
+  <div class="section-title"><h2>Dispositivos principales</h2><div class="line"></div></div>
+  <div class="device-cards">
+
+    <!-- ARRIS -->
+    <div class="dev-card">
+      <div class="dev-head">
+        <div class="dev-badge arris">A</div>
+        <div><h3>ARRIS TG2482</h3><p class="sub">Gateway principal · 192.168.60.1</p></div>
+        <div class="dev-status"><span class="dot"></span>Online</div>
+        <button class="dev-menu-btn" onclick="toggleMenu('menu-arris')">⋮</button>
+      </div>
+      <div class="dev-body">
+        <table class="kv-table">
+          <tr><td class="k">ISP</td><td class="v">Tigo Bolivia</td></tr>
+          <tr><td class="k">IP WAN</td><td class="v">10.122.145.65 (CGNAT)</td></tr>
+          <tr><td class="k">MAC</td><td class="v">2C:00:AB:6E:5C:24</td></tr>
+          <tr><td class="k">DNS</td><td class="v">200.73.96.167 / 190.104.12.43</td></tr>
+          <tr><td class="k">Firmware</td><td class="v">9.1.103GE4AL.SIP</td></tr>
+          <tr><td class="k">Serial</td><td class="v">2544D99ED811552</td></tr>
+          <tr><td class="k">Uptime</td><td class="v">18d 6h 12m</td></tr>
+        </table>
+      </div>
+      <div class="res-bars">
+        <div class="res-bar-item">
+          <div class="rb-head"><span>CPU</span><span>27%</span></div>
+          <div class="res-bar-track"><div class="res-bar-fill" style="width:27%;background:var(--blue)"></div></div>
+        </div>
+        <div class="res-bar-item">
+          <div class="rb-head"><span>RAM</span><span>54%</span></div>
+          <div class="res-bar-track"><div class="res-bar-fill" style="width:54%;background:var(--yellow)"></div></div>
+        </div>
+        <div class="res-bar-item">
+          <div class="rb-head"><span>Temp</span><span>48°C</span></div>
+          <div class="res-bar-track"><div class="res-bar-fill" style="width:48%;background:var(--green)"></div></div>
+        </div>
+      </div>
+      <div class="mini-charts">
+        <div class="mini-chart-box"><div class="mc-head"><span>Download</span><b>182 Mbps</b></div><canvas class="spark" data-series="down" data-color="#4C8DFF"></canvas></div>
+        <div class="mini-chart-box"><div class="mc-head"><span>Upload</span><b>38 Mbps</b></div><canvas class="spark" data-series="up" data-color="#F0883E"></canvas></div>
+        <div class="mini-chart-box"><div class="mc-head"><span>Latency</span><b>14 ms</b></div><canvas class="spark" data-series="lat" data-color="#E3B341"></canvas></div>
+        <div class="mini-chart-box"><div class="mc-head"><span>Packet loss</span><b>0.1%</b></div><canvas class="spark" data-series="loss" data-color="#F85149"></canvas></div>
+      </div>
+      <div class="dev-actions">
+        <a class="btn primary" href="http://192.168.60.1/" target="_blank">Panel principal</a>
+        <button class="btn" onclick="confirmAction('Reiniciar ARRIS TG2482','Esto interrumpirá la conexión a internet de toda la red por 1–2 minutos.', 'http://192.168.60.1/?util_restart')">Restart</button>
+        <button class="btn">Ping</button>
+        <button class="btn">Trace Route</button>
+        <button class="btn">View Logs</button>
+      </div>
+    </div>
+
+    <!-- TENDA -->
+    <div class="dev-card">
+      <div class="dev-head">
+        <div class="dev-badge tenda">T</div>
+        <div><h3>TENDA</h3><p class="sub">Router secundario · 192.168.3.1</p></div>
+        <div class="dev-status"><span class="dot"></span>Online</div>
+        <button class="dev-menu-btn" onclick="toggleMenu('menu-tenda')">⋮</button>
+      </div>
+      <div class="dev-body">
+        <table class="kv-table">
+          <tr><td class="k">IP WAN (uplink)</td><td class="v">192.168.60.26</td></tr>
+          <tr><td class="k">Gateway upstream</td><td class="v">192.168.60.1</td></tr>
+          <tr><td class="k">Firmware</td><td class="v">V5.110.27.21</td></tr>
+          <tr><td class="k">Serial</td><td class="v">E7973010046003844</td></tr>
+          <tr><td class="k">Rango DHCP</td><td class="v">192.168.3.100 – .200</td></tr>
+          <tr><td class="k">Reinicio automático</td><td class="v">3:00 – 5:00 AM</td></tr>
+          <tr><td class="k">Uptime</td><td class="v">6d 2h</td></tr>
+        </table>
+      </div>
+      <div class="res-bars">
+        <div class="res-bar-item">
+          <div class="rb-head"><span>CPU</span><span>19%</span></div>
+          <div class="res-bar-track"><div class="res-bar-fill" style="width:19%;background:var(--blue)"></div></div>
+        </div>
+        <div class="res-bar-item">
+          <div class="rb-head"><span>RAM</span><span>41%</span></div>
+          <div class="res-bar-track"><div class="res-bar-fill" style="width:41%;background:var(--yellow)"></div></div>
+        </div>
+        <div class="res-bar-item">
+          <div class="rb-head"><span>Uplink</span><span>1 Gbps</span></div>
+          <div class="res-bar-track"><div class="res-bar-fill" style="width:80%;background:var(--green)"></div></div>
+        </div>
+      </div>
+      <div class="mini-charts">
+        <div class="mini-chart-box"><div class="mc-head"><span>Download</span><b>176 Mbps</b></div><canvas class="spark" data-series="down2" data-color="#4C8DFF"></canvas></div>
+        <div class="mini-chart-box"><div class="mc-head"><span>Upload</span><b>36 Mbps</b></div><canvas class="spark" data-series="up2" data-color="#F0883E"></canvas></div>
+        <div class="mini-chart-box"><div class="mc-head"><span>Backhaul link</span><b>866 Mbps</b></div><canvas class="spark" data-series="bh" data-color="#3FD17A"></canvas></div>
+        <div class="mini-chart-box"><div class="mc-head"><span>Clientes</span><b>6</b></div><canvas class="spark" data-series="cl" data-color="#A371F7"></canvas></div>
+      </div>
+      <div class="dev-actions">
+        <a class="btn primary" href="http://192.168.3.1/" target="_blank">Panel principal</a>
+        <button class="btn" onclick="confirmAction('Reiniciar TENDA','Los clientes conectados a este router perderán la conexión Wi-Fi/LAN por unos segundos.', 'http://192.168.3.1/')">Restart</button>
+        <button class="btn">Ping</button>
+        <button class="btn">Trace Route</button>
+        <button class="btn">View Logs</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= WI-FI ================= -->
+  <div class="section-title"><h2>Wi-Fi</h2><div class="line"></div></div>
+  <div class="tabs">
+    <div class="tab active" onclick="setTab(this,'wifi-24')">2.4 GHz</div>
+    <div class="tab" onclick="setTab(this,'wifi-5')">5 GHz</div>
+    <div class="tab" onclick="setTab(this,'wifi-bh')">Backhaul</div>
+  </div>
+
+  <div class="tab-panel active" id="wifi-24">
+    <div class="wifi-info-grid">
+      <div class="wifi-info-card"><div class="lbl">SSID</div><div class="val">Azul1</div></div>
+      <div class="wifi-info-card"><div class="lbl">Canal</div><div class="val">11</div></div>
+      <div class="wifi-info-card"><div class="lbl">Ancho de canal</div><div class="val">20 MHz</div></div>
+      <div class="wifi-info-card"><div class="lbl">Protocolo</div><div class="val">802.11n</div></div>
+      <div class="wifi-info-card"><div class="lbl">Seguridad</div><div class="val">WPA2-PSK</div></div>
+      <div class="wifi-info-card"><div class="lbl">Potencia Tx</div><div class="val">20 dBm</div></div>
+      <div class="wifi-info-card"><div class="lbl">Noise Floor</div><div class="val">-92 dBm</div></div>
+      <div class="wifi-info-card"><div class="lbl">Interferencia</div><div class="val" style="color:var(--yellow)">Moderada</div></div>
+    </div>
+  </div>
+  <div class="tab-panel" id="wifi-5">
+    <div class="wifi-info-grid">
+      <div class="wifi-info-card"><div class="lbl">SSID</div><div class="val">Azul1</div></div>
+      <div class="wifi-info-card"><div class="lbl">Canal</div><div class="val">157</div></div>
+      <div class="wifi-info-card"><div class="lbl">Ancho de canal</div><div class="val">80 MHz</div></div>
+      <div class="wifi-info-card"><div class="lbl">Protocolo</div><div class="val">802.11ac</div></div>
+      <div class="wifi-info-card"><div class="lbl">Seguridad</div><div class="val">WPA2-PSK</div></div>
+      <div class="wifi-info-card"><div class="lbl">Potencia Tx</div><div class="val">23 dBm</div></div>
+      <div class="wifi-info-card"><div class="lbl">Noise Floor</div><div class="val">-95 dBm</div></div>
+      <div class="wifi-info-card"><div class="lbl">Interferencia</div><div class="val" style="color:var(--green)">Baja</div></div>
+    </div>
+  </div>
+  <div class="tab-panel" id="wifi-bh">
+    <div class="wifi-info-grid">
+      <div class="wifi-info-card"><div class="lbl">SSID</div><div class="val">WIFI-BACKHAUL</div></div>
+      <div class="wifi-info-card"><div class="lbl">Banda</div><div class="val">5 GHz</div></div>
+      <div class="wifi-info-card"><div class="lbl">Velocidad negociada</div><div class="val">866 Mbps</div></div>
+      <div class="wifi-info-card"><div class="lbl">RSSI</div><div class="val" style="color:var(--green)">-52 dBm</div></div>
+      <div class="wifi-info-card"><div class="lbl">SNR</div><div class="val">40 dB</div></div>
+      <div class="wifi-info-card"><div class="lbl">Enlace hacia</div><div class="val">TENDA → ARRIS</div></div>
+    </div>
+  </div>
+
+  <!-- ================= CLIENTS TABLE ================= -->
+  <div class="section-title" id="clientes"><h2>Clientes conectados</h2><div class="line"></div></div>
+  <div class="table-toolbar">
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Buscar dispositivo, IP o MAC..." oninput="filterClients()" id="searchInput">
+    </div>
+    <div class="filter-chip active" data-f="all" onclick="setFilter(this)">Todos</div>
+    <div class="filter-chip" data-f="online" onclick="setFilter(this)">Online</div>
+    <div class="filter-chip" data-f="offline" onclick="setFilter(this)">Offline</div>
+    <div class="filter-chip" data-f="wifi" onclick="setFilter(this)">Wi-Fi</div>
+    <div class="filter-chip" data-f="ethernet" onclick="setFilter(this)">Ethernet</div>
+    <div class="filter-chip" data-f="2.4ghz" onclick="setFilter(this)">2.4 GHz</div>
+    <div class="filter-chip" data-f="5ghz" onclick="setFilter(this)">5 GHz</div>
+  </div>
+  <div class="table-wrap">
+    <table class="data" id="clientsTable">
+      <thead>
+        <tr>
+          <th>Device</th><th>Type</th><th>IP</th><th>MAC</th><th>Vendor</th><th>Connection</th>
+          <th>Band</th><th>Signal</th><th>RX</th><th>TX</th><th>Data Usage</th><th>Uptime</th><th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="clientsBody"></tbody>
+    </table>
+  </div>
+
+  <!-- ================= REAL-TIME MONITORING ================= -->
+  <div class="section-title"><h2>Monitoreo en tiempo real</h2><div class="line"></div></div>
+  <div class="chart-panel">
+    <div class="ch-head">
+      <h3>Ancho de banda (Download / Upload)</h3>
+      <div class="period-tabs">
+        <span class="active">Live</span><span>1H</span><span>6H</span><span>24H</span><span>7D</span><span>30D</span>
+      </div>
+    </div>
+    <canvas class="big-chart" id="chartBandwidth"></canvas>
+    <div class="legend-row">
+      <div class="lg"><span class="sw" style="background:#4C8DFF"></span>Download</div>
+      <div class="lg"><span class="sw" style="background:#F0883E"></span>Upload</div>
+    </div>
+  </div>
+  <div class="charts-grid">
+    <div class="chart-panel">
+      <div class="ch-head"><h3>Latencia &amp; Packet Loss</h3></div>
+      <canvas class="big-chart" id="chartLatency"></canvas>
+      <div class="legend-row"><div class="lg"><span class="sw" style="background:#E3B341"></span>Latencia (ms)</div><div class="lg"><span class="sw" style="background:#F85149"></span>Packet loss (%)</div></div>
+    </div>
+    <div class="chart-panel">
+      <div class="ch-head"><h3>CPU / RAM (ARRIS)</h3></div>
+      <canvas class="big-chart" id="chartResources"></canvas>
+      <div class="legend-row"><div class="lg"><span class="sw" style="background:#4C8DFF"></span>CPU</div><div class="lg"><span class="sw" style="background:#E3B341"></span>RAM</div></div>
+    </div>
+    <div class="chart-panel">
+      <div class="ch-head"><h3>Temperatura</h3></div>
+      <canvas class="big-chart" id="chartTemp"></canvas>
+      <div class="legend-row"><div class="lg"><span class="sw" style="background:#3FD17A"></span>°C</div></div>
+    </div>
+    <div class="chart-panel">
+      <div class="ch-head"><h3>Número de clientes</h3></div>
+      <canvas class="big-chart" id="chartClients"></canvas>
+      <div class="legend-row"><div class="lg"><span class="sw" style="background:#A371F7"></span>Clientes</div></div>
+    </div>
+  </div>
+
+  <!-- ================= ALERTS ================= -->
+  <div class="section-title"><h2>Alertas &amp; eventos</h2><div class="line"></div></div>
+  <div id="alertsList"></div>
+
+  <!-- ================= ADVANCED INFO ================= -->
+  <div class="section-title"><h2>Información avanzada</h2><div class="line"></div></div>
+  <div id="advancedAccordion"></div>
+
+  <p class="foot-note">Network Operations Center · Datos de referencia con fines de monitoreo local · No compartir credenciales de acceso.</p>
+</div>
+
+<!-- ================= MODAL ================= -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <h3 id="modalTitle">Confirmar acción</h3>
+    <p id="modalText">¿Seguro que deseas continuar?</p>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal()">Cancelar</button>
+      <button class="btn danger primary" id="modalConfirmBtn" style="background:var(--red);border-color:var(--red)">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------- Topology detail toggle ---------- */
+function showDetail(id){
+  document.querySelectorAll('.detail-panel').forEach(p=>{
+    p.classList.toggle('show', p.id==='detail-'+id ? !p.classList.contains('show') : false);
+  });
+}
+
+/* ---------- Tabs ---------- */
+function setTab(el,id){
+  el.parentElement.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  el.closest('.wrap').querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* ---------- Modal ---------- */
+function confirmAction(title, text, url){
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalText').textContent = text;
+  const btn = document.getElementById('modalConfirmBtn');
+  btn.onclick = ()=>{ window.open(url,'_blank'); closeModal(); };
+  document.getElementById('modalBg').classList.add('show');
+}
+function closeModal(){ document.getElementById('modalBg').classList.remove('show'); }
+document.getElementById('modalBg').addEventListener('click',e=>{ if(e.target.id==='modalBg') closeModal(); });
+
+/* ---------- Refresh ---------- */
+function refreshNow(){
+  document.getElementById('lastUpdate').textContent = 'hace 0 s';
+  let s=0;
+  clearInterval(window._upTimer);
+  window._upTimer=setInterval(()=>{ s++; document.getElementById('lastUpdate').textContent = 'hace '+s+' s'; },1000);
+}
+refreshNow();
+
+/* ---------- Clients data ---------- */
+const vendors=['Apple','Samsung','Xiaomi','TP-Link','Intel','Huawei','Google','Dell'];
+const types=['Phone','Laptop','TV','IoT','Tablet','Console','Desktop'];
+const clients=[
+  {name:'iPhone-Alvaro',type:'Phone',ip:'192.168.3.101',mac:'A4:5E:60:1B:2C:3D',vendor:'Apple',conn:'Wi-Fi',band:'5GHz',rssi:-48,rx:'1.2 GB',tx:'320 MB',uptime:'4h 12m',status:'online'},
+  {name:'MacBook-Pro',type:'Laptop',ip:'192.168.3.102',mac:'B8:27:EB:2C:4D:5E',vendor:'Apple',conn:'Wi-Fi',band:'5GHz',rssi:-52,rx:'3.8 GB',tx:'900 MB',uptime:'9h 40m',status:'online'},
+  {name:'Smart-TV-Sala',type:'TV',ip:'192.168.3.103',mac:'C4:73:1E:3D:5E:6F',vendor:'Samsung',conn:'Wi-Fi',band:'5GHz',rssi:-58,rx:'12.4 GB',tx:'80 MB',uptime:'2d 3h',status:'online'},
+  {name:'Redmi-Note-12',type:'Phone',ip:'192.168.3.104',mac:'D0:17:C2:4E:6F:70',vendor:'Xiaomi',conn:'Wi-Fi',band:'2.4GHz',rssi:-67,rx:'640 MB',tx:'210 MB',uptime:'1h 05m',status:'online'},
+  {name:'Echo-Dot-Cocina',type:'IoT',ip:'192.168.3.105',mac:'E8:9F:80:5F:70:81',vendor:'Google',conn:'Wi-Fi',band:'2.4GHz',rssi:-71,rx:'22 MB',tx:'8 MB',uptime:'6d 1h',status:'online'},
+  {name:'PC-Escritorio',type:'Desktop',ip:'192.168.60.20',mac:'F0:1F:AF:60:81:92',vendor:'Dell',conn:'Ethernet',band:'-',rssi:null,rx:'22.1 GB',tx:'5.4 GB',uptime:'18d 6h',status:'online'},
+  {name:'PS5-Living',type:'Console',ip:'192.168.60.21',mac:'AC:37:43:71:92:A3',vendor:'Intel',conn:'Ethernet',band:'-',rssi:null,rx:'40.2 GB',tx:'2.1 GB',uptime:'3d 5h',status:'online'},
+  {name:'Laptop-Trabajo',type:'Laptop',ip:'192.168.60.22',mac:'B0:BE:76:82:A3:B4',vendor:'TP-Link',conn:'Ethernet',band:'-',rssi:null,rx:'8.7 GB',tx:'1.9 GB',uptime:'10h 15m',status:'online'},
+  {name:'iPad-Mini',type:'Tablet',ip:'192.168.3.106',mac:'D8:BB:2C:93:B4:C5',vendor:'Apple',conn:'Wi-Fi',band:'5GHz',rssi:-55,rx:'980 MB',tx:'150 MB',uptime:'2h 30m',status:'online'},
+  {name:'Camara-Puerta',type:'IoT',ip:'192.168.3.107',mac:'C0:25:E9:A4:C5:D6',vendor:'Huawei',conn:'Wi-Fi',band:'2.4GHz',rssi:-74,rx:'5.1 GB',tx:'6.8 GB',uptime:'18d 6h',status:'online'},
+  {name:'Impresora-HP',type:'IoT',ip:'192.168.3.108',mac:'E4:AA:5D:B5:D6:E7',vendor:'Intel',conn:'Wi-Fi',band:'2.4GHz',rssi:-63,rx:'40 MB',tx:'12 MB',uptime:'5d 8h',status:'offline'},
+  {name:'Chromecast',type:'IoT',ip:'192.168.3.109',mac:'F4:F5:D8:C6:E7:F8',vendor:'Google',conn:'Wi-Fi',band:'5GHz',rssi:-60,rx:'6.2 GB',tx:'40 MB',uptime:'1d 2h',status:'online'},
+  {name:'Notebook-Invitado',type:'Laptop',ip:'192.168.3.110',mac:'A8:5E:45:D7:F8:09',vendor:'Dell',conn:'Wi-Fi',band:'2.4GHz',rssi:-78,rx:'210 MB',tx:'55 MB',uptime:'25m',status:'offline'},
+  {name:'NAS-Backup',type:'Desktop',ip:'192.168.60.23',mac:'88:D7:F6:E8:09:1A',vendor:'Intel',conn:'Ethernet',band:'-',rssi:null,rx:'120 GB',tx:'80 GB',uptime:'18d 6h',status:'online'},
+];
+
+function signalIcon(rssi){
+  if(rssi===null) return '<span class="signal-bars"><span style="background:var(--green)"></span><span style="background:var(--green)"></span><span style="background:var(--green)"></span><span style="background:var(--green)"></span></span> Wired';
+  let n = rssi>-55?4:rssi>-65?3:rssi>-75?2:1;
+  let color = n>=3?'var(--green)':n===2?'var(--yellow)':'var(--red)';
+  let bars='';
+  for(let i=1;i<=4;i++){ bars+='<span style="background:'+(i<=n?color:'var(--border)')+'"></span>'; }
+  return '<span class="signal-bars">'+bars+'</span> '+rssi+' dBm';
+}
+
+function renderClients(list){
+  const body=document.getElementById('clientsBody');
+  body.innerHTML='';
+  list.forEach(c=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td><div class="client-name"><div class="client-ic">${iconFor(c.type)}</div>${c.name}</div></td>
+      <td>${c.type}</td>
+      <td>${c.ip}</td>
+      <td style="color:var(--muted)">${c.mac}</td>
+      <td>${c.vendor}</td>
+      <td>${c.conn}</td>
+      <td>${c.band}</td>
+      <td>${signalIcon(c.rssi)}</td>
+      <td>${c.rx}</td>
+      <td>${c.tx}</td>
+      <td>${addGB(c.rx,c.tx)}</td>
+      <td>${c.uptime}</td>
+      <td><span class="badge-status ${c.status==='online'?'online':'off'}">● ${c.status==='online'?'Online':'Offline'}</span></td>
+    `;
+    body.appendChild(tr);
+  });
+}
+function addGB(rx,tx){
+  const num=s=>parseFloat(s);
+  return (num(rx)+num(tx)).toFixed(1)+' '+(rx.includes('GB')||tx.includes('GB')?'GB':'MB');
+}
+function iconFor(type){
+  const icons={
+    Phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>',
+    Laptop:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><rect x="2" y="4" width="20" height="12" rx="1"/><line x1="2" y1="20" x2="22" y2="20"/></svg>',
+    TV:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="22" x2="16" y2="22"/></svg>',
+    IoT:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>',
+    Tablet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>',
+    Console:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><rect x="2" y="6" width="20" height="12" rx="6"/><circle cx="8" cy="12" r="1.5"/><circle cx="16" cy="12" r="1.5"/></svg>',
+    Desktop:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><rect x="3" y="4" width="18" height="12" rx="1"/><line x1="8" y1="20" x2="16" y2="20"/></svg>',
+  };
+  return icons[type]||icons.IoT;
+}
+let activeFilter='all';
+function setFilter(el){
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  activeFilter=el.dataset.f;
+  filterClients();
+}
+function filterClients(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  let list=clients.filter(c=>{
+    if(q && !(c.name.toLowerCase().includes(q)||c.ip.includes(q)||c.mac.toLowerCase().includes(q))) return false;
+    switch(activeFilter){
+      case 'online': return c.status==='online';
+      case 'offline': return c.status==='offline';
+      case 'wifi': return c.conn==='Wi-Fi';
+      case 'ethernet': return c.conn==='Ethernet';
+      case '2.4ghz': return c.band==='2.4GHz';
+      case '5ghz': return c.band==='5GHz';
+      default: return true;
+    }
+  });
+  renderClients(list);
+}
+renderClients(clients);
+
+/* ---------- Sparkline mini charts ---------- */
+function genSeries(n, base, vol){
+  let arr=[]; let v=base;
+  for(let i=0;i<n;i++){ v += (Math.random()-0.5)*vol; v=Math.max(0,v); arr.push(v); }
+  return arr;
+}
+function drawSpark(canvas, data, color){
+  const ctx=canvas.getContext('2d');
+  const w=canvas.width=canvas.clientWidth*2, h=canvas.height=canvas.clientHeight*2;
+  ctx.clearRect(0,0,w,h);
+  const max=Math.max(...data), min=Math.min(...data);
+  const range=(max-min)||1;
+  ctx.beginPath();
+  data.forEach((v,i)=>{
+    const x=i/(data.length-1)*w;
+    const y=h-((v-min)/range)*h*0.8-h*0.1;
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  });
+  ctx.strokeStyle=color; ctx.lineWidth=3; ctx.lineJoin='round'; ctx.stroke();
+  ctx.lineTo(w,h); ctx.lineTo(0,h); ctx.closePath();
+  const grad=ctx.createLinearGradient(0,0,0,h);
+  grad.addColorStop(0,color+'55'); grad.addColorStop(1,color+'00');
+  ctx.fillStyle=grad; ctx.fill();
+}
+document.querySelectorAll('canvas.spark').forEach(c=>{
+  drawSpark(c, genSeries(24, 50+Math.random()*40, 20), c.dataset.color);
+});
+
+/* ---------- Big charts (bandwidth, latency, resources, temp, clients) ---------- */
+function drawLineChart(canvas, series, labelsN){
+  const ctx=canvas.getContext('2d');
+  const dpr=2;
+  const w=canvas.width=canvas.clientWidth*dpr, h=canvas.height=canvas.clientHeight*dpr;
+  ctx.clearRect(0,0,w,h);
+  // grid
+  ctx.strokeStyle='#1A222C'; ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const y=h/4*i;
+    ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke();
+  }
+  series.forEach(s=>{
+    const max=Math.max(...s.data), min=Math.min(...s.data); const range=(max-min)||1;
+    ctx.beginPath();
+    s.data.forEach((v,i)=>{
+      const x=i/(s.data.length-1)*w;
+      const y=h-((v-min)/range)*h*0.75-h*0.08;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.strokeStyle=s.color; ctx.lineWidth=2.5; ctx.lineJoin='round'; ctx.stroke();
+  });
+}
+const bwSeries=[
+  {data:genSeries(40,150,60),color:'#4C8DFF'},
+  {data:genSeries(40,35,15),color:'#F0883E'},
+];
+const latSeries=[
+  {data:genSeries(40,14,6),color:'#E3B341'},
+  {data:genSeries(40,0.2,0.3),color:'#F85149'},
+];
+const resSeries=[
+  {data:genSeries(40,27,10),color:'#4C8DFF'},
+  {data:genSeries(40,54,10),color:'#E3B341'},
+];
+const tempSeries=[{data:genSeries(40,47,4),color:'#3FD17A'}];
+const clientsSeries=[{data:genSeries(40,13,3),color:'#A371F7'}];
+
+function renderAllCharts(){
+  drawLineChart(document.getElementById('chartBandwidth'), bwSeries);
+  drawLineChart(document.getElementById('chartLatency'), latSeries);
+  drawLineChart(document.getElementById('chartResources'), resSeries);
+  drawLineChart(document.getElementById('chartTemp'), tempSeries);
+  drawLineChart(document.getElementById('chartClients'), clientsSeries);
+}
+renderAllCharts();
+window.addEventListener('resize', ()=>{
+  renderAllCharts();
+  document.querySelectorAll('canvas.spark').forEach(c=>{
+    drawSpark(c, genSeries(24, 50+Math.random()*40, 20), c.dataset.color);
+  });
+});
+
+document.querySelectorAll('.period-tabs').forEach(pt=>{
+  pt.querySelectorAll('span').forEach(s=>{
+    s.addEventListener('click',()=>{
+      pt.querySelectorAll('span').forEach(x=>x.classList.remove('active'));
+      s.classList.add('active');
+    });
+  });
+});
+
+/* ---------- Alerts ---------- */
+const alertsData=[
+  {sev:'critical',icon:'off',title:'Impresora-HP desconectada',meta:'192.168.3.108 · hace 22 min · TENDA',time:'22 min'},
+  {sev:'warning',icon:'wifi',title:'Señal Wi-Fi débil: Camara-Puerta',meta:'-74 dBm · 2.4GHz · hace 8 min',time:'8 min'},
+  {sev:'warning',icon:'cpu',title:'RAM elevada en ARRIS TG2482',meta:'54% de uso sostenido · hace 15 min',time:'15 min'},
+  {sev:'info',icon:'update',title:'Actualización de firmware disponible',meta:'TENDA · V5.110.28.10 · hace 2 h',time:'2 h'},
+  {sev:'info',icon:'dhcp',title:'Nuevo dispositivo detectado en la red',meta:'Chromecast · 192.168.3.109 · hace 1 d',time:'1 d'},
+];
+const alertIcons={
+  off:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l22 22"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>',
+  wifi:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>',
+  cpu:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>',
+  update:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>',
+  dhcp:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
+};
+function renderAlerts(){
+  const list=document.getElementById('alertsList');
+  list.innerHTML='';
+  alertsData.forEach((a,idx)=>{
+    const colorMap={critical:'red',warning:'yellow',info:'blue'};
+    const c=colorMap[a.sev];
+    const div=document.createElement('div');
+    div.className='alert-item';
+    div.innerHTML=`
+      <div class="alert-icon icon-${c}">${alertIcons[a.icon]}</div>
+      <div class="alert-body">
+        <div class="alert-title">${a.title}<span class="sev-tag ${a.sev}">${a.sev}</span></div>
+        <div class="alert-meta">${a.meta}</div>
+      </div>
+      <button class="alert-resolve" onclick="resolveAlert(${idx})">Marcar resuelta</button>
+    `;
+    list.appendChild(div);
+  });
+}
+function resolveAlert(idx){
+  alertsData.splice(idx,1);
+  renderAlerts();
+}
+renderAlerts();
+
+/* ---------- Advanced info accordion ---------- */
+const advanced=[
+  {title:'DHCP Leases',rows:[['192.168.3.101 → iPhone-Alvaro','Expira en 22h'],['192.168.3.104 → Redmi-Note-12','Expira en 20h'],['192.168.60.20 → PC-Escritorio','Estático']]},
+  {title:'ARP Table',rows:[['192.168.60.1','2C:00:AB:6E:5C:24'],['192.168.60.26','C8:3A:35:11:22:33'],['192.168.3.101','A4:5E:60:1B:2C:3D']]},
+  {title:'Routing Table',rows:[['0.0.0.0/0','vía 10.122.145.1 (WAN)'],['192.168.60.0/24','directo (LAN Arris)'],['192.168.3.0/24','vía 192.168.60.26 (Tenda)']]},
+  {title:'DNS Status',rows:[['Primario','200.73.96.167 — OK'],['Secundario','190.104.12.43 — OK'],['Resolución promedio','12 ms']]},
+  {title:'NAT / Firewall',rows:[['NAT','Habilitado (CGNAT en WAN)'],['Firewall SPI','Activo'],['Reglas personalizadas','0']]},
+  {title:'Port Forwarding',rows:[['Reglas activas','0'],['UPnP','Habilitado'],['Puertos UPnP abiertos','3']]},
+  {title:'IPv4 / IPv6',rows:[['IPv4','Activo'],['IPv6','No configurado']]},
+  {title:'WAN Statistics',rows:[['Bytes recibidos','1.2 TB (30d)'],['Bytes enviados','310 GB (30d)'],['Errores CRC','0']]},
+  {title:'System Logs (últimos)',rows:[['18d 06:10:22','WAN link up'],['18d 06:10:05','DHCP client renewed'],['0d 00:22:11','Cliente desconectado: Impresora-HP']]},
+];
+function renderAdvanced(){
+  const wrap=document.getElementById('advancedAccordion');
+  wrap.innerHTML='';
+  advanced.forEach((sec,idx)=>{
+    const div=document.createElement('div');
+    div.className='acc-item';
+    div.innerHTML=`
+      <div class="acc-head" onclick="this.parentElement.classList.toggle('open')">
+        <span class="t">${sec.title}</span>
+        <span class="chev">▾</span>
+      </div>
+      <div class="acc-body"><table>${sec.rows.map(r=>`<tr><td>${r[0]}</td><td class="v">${r[1]}</td></tr>`).join('')}</table></div>
+    `;
+    wrap.appendChild(div);
+  });
+}
+renderAdvanced();
+
+/* ---------- Device card menu ---------- */
+function toggleMenu(){ /* placeholder for future dropdown */ }
+</script>
+</body>
+</html>
