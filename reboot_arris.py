@@ -22,6 +22,8 @@ def main():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
+        page.on("console", lambda msg: print("CONSOLE:", msg.type, msg.text))
+        page.on("requestfinished", lambda req: print("REQ:", req.method, req.url))
         page.goto(f"http://{HOST}/", wait_until="networkidle")
 
         print("1) Iniciando sesión...")
@@ -30,9 +32,22 @@ def main():
         page.keyboard.press("Enter")
         page.wait_for_load_state("networkidle")
 
-        page.wait_for_timeout(2000)
-        page.screenshot(path="after_login.png")
-        print("Links visibles:", page.locator("a").all_inner_texts())
+        for i in range(6):
+            page.wait_for_timeout(5000)
+            loading_visible = page.locator("#loading-dialog").is_visible()
+            if not loading_visible:
+                break
+
+        def wait_loaded():
+            for i in range(8):
+                page.wait_for_timeout(2000)
+                if not page.locator("#loading-dialog").is_visible():
+                    return
+
+        print("2) Abriendo menu Utilidades...")
+        page.get_by_text("Utilidades", exact=True).click()
+        wait_loaded()
+        print("SUBMENU TEXT:", page.inner_text("body")[:2500])
         return
 
         if DRY_RUN:
