@@ -12,11 +12,14 @@ Uso:
 
 import json
 import re
+import time
 import urllib.request
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 MODEM_HOST = "192.168.100.1"
 PORT = 8765
+
+_last_sample = None  # (timestamp, total_downstream_octets)
 
 
 def fetch(path):
@@ -103,6 +106,22 @@ def parse_vers(html):
         "firmware_name": fw_name_m.group(1).strip() if fw_name_m else None,
         "firmware_build_time": fw_build_m.group(1).strip() if fw_build_m else None,
     }
+
+
+def compute_downstream_mbps(downstream):
+    """Throughput real de bajada, estimado por delta de octetos acumulados entre
+    dos llamadas sucesivas a este endpoint (el CM no expone contador de subida)."""
+    global _last_sample
+    total_octets = sum(int(d["octets"]) for d in downstream)
+    now = time.time()
+    mbps = None
+    if _last_sample is not None:
+        prev_time, prev_octets = _last_sample
+        dt = now - prev_time
+        if dt > 0.5 and total_octets >= prev_octets:
+            mbps = round((total_octets - prev_octets) * 8 / dt / 1_000_000, 2)
+    _last_sample = (now, total_octets)
+    return mbps
 
 
 class Handler(SimpleHTTPRequestHandler):
