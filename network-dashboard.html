@@ -450,7 +450,7 @@ canvas.big-chart{width:100%;height:180px;display:block;}
         <div class="dt"><span class="k">MAC Address</span><span class="v">2C:00:AB:6E:5C:24</span></div>
         <div class="dt"><span class="k">Firmware</span><span class="v">9.1.103GE4AL.SIP</span></div>
         <div class="dt"><span class="k">Hardware Rev.</span><span class="v">8.0</span></div>
-        <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">Uptime</span><span class="v">18d 6h 12m</span></div>
+        <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">Uptime</span><span class="v" data-real="arris-uptime">18d 6h 12m</span></div>
         <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">CPU</span><span class="v">27%</span></div>
         <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">RAM</span><span class="v">54%</span></div>
         <div class="dt sim" title="Dato simulado, no proviene del router real"><span class="k">Temperatura</span><span class="v">48°C</span></div>
@@ -507,7 +507,7 @@ canvas.big-chart{width:100%;height:180px;display:block;}
           <tr><td class="k">DNS</td><td class="v">200.73.96.167 / 190.104.12.43</td></tr>
           <tr><td class="k">Firmware</td><td class="v">9.1.103GE4AL.SIP</td></tr>
           <tr><td class="k">Serial</td><td class="v">2544D99ED811552</td></tr>
-          <tr class="sim" title="Dato simulado, no proviene del router real"><td class="k">Uptime</td><td class="v">18d 6h 12m</td></tr>
+          <tr class="sim" title="Dato simulado, no proviene del router real"><td class="k">Uptime</td><td class="v" data-real="arris-uptime">18d 6h 12m</td></tr>
         </table>
       </div>
       <div class="res-bars sim-block" title="Datos simulados, no provienen del router real">
@@ -1014,6 +1014,45 @@ renderAdvanced();
 
 /* ---------- Device card menu ---------- */
 function toggleMenu(){ /* placeholder for future dropdown */ }
+
+/* ---------- Real ARRIS data (via local proxy, see server.py) ---------- */
+async function loadRealArrisData(){
+  try{
+    const r = await fetch('/api/arris-status');
+    const d = await r.json();
+    if(!d.ok) throw new Error(d.error||'sin datos');
+    const s = d.status, v = d.versions;
+
+    document.querySelectorAll('[data-real="arris-uptime"]').forEach(el=>{
+      el.textContent = s.uptime;
+      el.closest('.sim,.dt,.top-stat')?.classList.remove('sim');
+      el.removeAttribute('title');
+    });
+    const cmBadge = document.getElementById('realCmStatus');
+    if(cmBadge) cmBadge.textContent = s.cm_status;
+
+    const dsPower = document.getElementById('realDsPower');
+    if(dsPower) dsPower.textContent = s.downstream_avg_power_dBmV+' dBmV';
+    const dsSnr = document.getElementById('realDsSnr');
+    if(dsSnr) dsSnr.textContent = s.downstream_avg_snr_dB+' dB';
+    const usPower = document.getElementById('realUsPower');
+    if(usPower) usPower.textContent = s.upstream_avg_power_dBmV+' dBmV';
+    const dsChannels = document.getElementById('realDsChannels');
+    if(dsChannels) dsChannels.textContent = s.downstream_channels;
+
+    const serial = document.getElementById('realSerial');
+    if(serial) serial.textContent = v.serial;
+    const swRev = document.getElementById('realSwRev');
+    if(swRev) swRev.textContent = v.sw_rev;
+
+    const box = document.getElementById('realDataBox');
+    if(box) box.style.display = 'block';
+  }catch(e){
+    console.warn('No se pudo leer /api/arris-status (¿corriste python server.py?):', e.message);
+  }
+}
+loadRealArrisData();
+setInterval(loadRealArrisData, 30000);
 </script>
 </body>
 </html>
