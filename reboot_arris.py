@@ -1,12 +1,14 @@
 """
-Reinicia el gateway ARRIS TG2482 (192.168.60.1) controlando un navegador real,
-porque la interfaz web del router es una SPA con login/estado manejado en JS
-y su CGI rechaza (con 500) cualquier llamada directa que no reproduzca ese
-protocolo exactamente. Usar un navegador evita tener que reimplementarlo.
+Reinicia el gateway ARRIS TG2482 (192.168.60.1) controlando un navegador real
+para hacer login (la SPA no acepta llamadas HTTP crudas: su CGI responde 500
+si no llega el nonce/timestamp que el JS añade). Una vez logueado, se invoca
+directamente snmpSet1() -la misma función que usa el botón "Restart Router"-
+sobre el OID de reinicio, en vez de navegar por los menús (la página de
+Status del router cuelga el renderer headless).
 
 Uso:
     python reboot_arris.py            # ejecuta el reinicio
-    python reboot_arris.py --dry-run  # hace login y llega hasta el botón, sin pulsarlo
+    python reboot_arris.py --dry-run  # hace login y prueba el OID sin reiniciar
 """
 
 import sys
@@ -15,15 +17,17 @@ from playwright.sync_api import sync_playwright
 HOST = "192.168.60.1"
 USER = "admin"
 PASSWORD = "alvaro"
+REBOOT_OID = "1.3.6.1.4.1.4115.1.20.1.1.5.4.0"
 DRY_RUN = "--dry-run" in sys.argv
 
 
 def main():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
+        browser = p.chromium.launch(
+            headless=True,
+            args=["--disable-gpu", "--disable-dev-shm-usage", "--no-sandbox", "--disable-software-rasterizer"],
+        )
         page = browser.new_page()
-        page.on("console", lambda msg: print("CONSOLE:", msg.type, msg.text))
-        page.on("requestfinished", lambda req: print("REQ:", req.method, req.url))
         page.goto(f"http://{HOST}/", wait_until="networkidle")
 
         print("1) Iniciando sesión...")
@@ -32,30 +36,24 @@ def main():
         page.keyboard.press("Enter")
         page.wait_for_load_state("networkidle")
 
-        for i in range(6):
+        for _ in range(6):
             page.wait_for_timeout(5000)
-            loading_visible = page.locator("#loading-dialog").is_visible()
-            if not loading_visible:
+            if not page.locator("#loading-dialog").is_visible():
                 break
 
-        def wait_loaded():
-            for i in range(8):
-                page.wait_for_timeout(2000)
-                if not page.locator("#loading-dialog").is_visible():
-                    return
-
-        print("2) Abriendo menu Utilidades...")
-        page.get_by_text("Utilidades", exact=True).click()
-        wait_loaded()
-        print("SUBMENU TEXT:", page.inner_text("body")[:2500])
-        return
+        logged_in = page.evaluate("typeof isLoggedIn === 'function' && !!isLoggedIn()")
+        if not logged_in:
+            raise SystemExit("Login falló: isLoggedIn() devolvió false. Revisa usuario/contraseña.")
+        print("   Login confirmado (isLoggedIn() == true).")
 
         if DRY_RUN:
-            print("[--dry-run] Login OK, botón de reinicio encontrado. No se pulsa.")
+            print(f"[--dry-run] Listo para enviar snmpSet1('{REBOOT_OID}', '1', '2'). No se ejecuta.")
         else:
-            print("3) Pulsando Restart...")
-            restart_button.click()
-            page.wait_for_timeout(3000)
+            print("2) Enviando comando de reinicio...")
+            result = page.evaluate(
+                "(oid) => snmpSet1(oid, '1', '2')", REBOOT_OID
+            )
+            print("   Resultado:", result)
             print("Listo. El ARRIS debería estar reiniciando ahora.")
 
         browser.close()
